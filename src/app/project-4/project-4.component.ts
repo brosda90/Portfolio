@@ -85,6 +85,6 @@ export class Project4Component implements AfterViewInit {
     window.open('https://wetter.sebastianbrosda.de', '_blank');
   }
   openGitHub(): void {
-    window.open('https://github.com/brosda90/weather_app', '_blank');
+    window.open('https://github.com/brosda90/Weather-app', '_blank');
   }
 }
