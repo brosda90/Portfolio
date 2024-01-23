@@ -1,0 +1,365 @@
+.nav-logo img {
+  position: absolute;
+  top: 32px;
+  left: 100px;
+  width: 66px;
+  height: auto;
+  z-index: 1001;
+}
+
+.menu-btn img {
+  z-index: 60;
+  position: absolute;
+  top: 36px;
+  right: 50px;
+}
+
+.opened-menu {
+  background-color: #fffcf3;
+  width: 100vw;
+  height: 1000px;
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  transform: translateY(-100%); // Start off-screen
+  transition: transform 0.5s ease; // Smooth transition for sliding effect
+
+  &.visible {
+    transform: translateY(0); // Slide into view
+
+    a,
+    p,
+    .menu-icons img {
+      opacity: 1;
+      transition: opacity 0.3s ease 0.3s; // Delayed appearance
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+
+  a {
+    position: relative;
+    font-size: 98px;
+    font-family: syne;
+    font-weight: 700;
+    margin-top: 25px;
+    color: black;
+    text-decoration: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: -30px;
+      bottom: -25px;
+      width: 0;
+      height: 4px;
+      background: black;
+      transition: width 0.3s ease, ease 0.3s; // Zwei-Phasen-Übergang
+    }
+
+    &:hover {
+      &::after {
+        width: 50%; // Zuerst die volle Breite
+        left: 50%; // Dann nach links verschieben, um nur 50% zu bedecken
+      }
+
+      + img {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+    }
+  }
+
+  img {
+    position: relative;
+    top: -27px;
+    left: -290px;
+    opacity: 1; // Standardmäßig sichtbar
+    transition: opacity 0s ease;
+  }
+}
+
+.opened-menu:not(.visible) .menu-links img {
+  opacity: 0; // Unsichtbar, wenn das Menü geschlossen ist
+}
+
+.column {
+  flex-direction: column;
+}
+
+.menu-contact {
+  z-index: 50;
+  padding-top: 132px;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  clip-path: polygon(0% 0%, 100% 50%, 100% 100%, 0% 100%);
+
+  a {
+    padding-left: 72px;
+    font-size: 82px;
+    text-decoration: none;
+    font-family: syne;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  p {
+    color: white;
+    font-size: 22px;
+    margin-top: 0px;
+    padding-left: 78px;
+  }
+  a,
+  p,
+  .menu-icons img {
+    opacity: 0; // Start with hidden text and icons
+  }
+}
+
+.menu-icons {
+  display: flex;
+  align-items: end;
+  padding-right: 72px;
+
+  img {
+    padding-right: 46px;
+    padding-bottom: 10px;
+    transition: transform 0.3s ease, color 0.3s ease; // Hinzufügen einer Übergangsanimation
+
+    &:hover {
+      cursor: pointer;
+      color: #00bc8f;
+      transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
+    }
+  }
+}
+
+.link-animation {
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.from-left {
+  transform: translateX(-100%);
+}
+
+.from-right {
+  transform: translateX(100%);
+}
+
+.opened-menu.visible .link-animation {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.opened-menu.visible .menu-contact {
+  animation: backgroundFade 1s ease forwards; // Anwendung der Animation nur wenn .opened-menu sichtbar ist
+}
+
+@keyframes backgroundFade {
+  from {
+    background-color: #fffcf3; // Startfarbe (gleich wie .opened-menu)
+  }
+  to {
+    background-color: black; // Endfarbe
+  }
+}
+
+@media (max-width: 800px) {
+  .nav-logo {
+    img {
+      width: 90px;
+    }
+  }
+
+  .menu-links {
+    a {
+      font-size: 68px;
+    }
+  }
+
+  .menu-contact {
+    a {
+      padding-left: 30px;
+      font-size: 42px;
+    }
+
+    p {
+      padding-left: 36px;
+    }
+  }
+
+  .menu-icons {
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 620px) {
+  .menu-links {
+    a {
+      font-size: 62px;
+    }
+  }
+
+  .menu-links {
+    img {
+      top: -40px;
+      left: -210px;
+    }
+
+    a {
+      bottom: -10px;
+    }
+  }
+}
+
+@media (max-width: 535px) {
+  .opened-menu {
+    height: 800px;
+  }
+
+  .menu-contact {
+    a {
+      padding-left: 30px;
+      font-size: 32px;
+    }
+
+    p {
+      padding-left: 36px;
+    }
+  }
+
+  .menu-links {
+    img {
+      left: -186px;
+    }
+
+    a {
+      font-size: 52px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .menu-btn img {
+    width: 37px;
+    z-index: 60;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+  }
+
+  .nav-logo {
+    img {
+      width: 60px;
+    }
+  }
+  .opened-menu {
+    height: 800px;
+  }
+
+  .menu-contact {
+    padding-top: 67px;
+    padding-bottom: 32px;
+    clip-path: polygon(0% 0%, 100% 36%, 100% 100%, 0% 100%);
+    flex-direction: column;
+    a {
+      padding-left: 26px;
+      font-size: 30px;
+    }
+
+    p {
+      padding-top: 10px;
+      padding-left: 26px;
+    }
+  }
+
+  .menu-links {
+    img {
+      left: -186px;
+    }
+
+    a {
+      font-size: 52px;
+    }
+  }
+
+  .menu-icons {
+    padding-left: 26px;
+  }
+}
+
+@media (max-width: 430px) {
+  .nav-logo {
+    img {
+      left: 47px;
+    }
+  }
+
+  .opened-menu {
+    height: 690px;
+  }
+
+  .menu-links {
+    img {
+      left: -136px;
+      top: -30px;
+    }
+
+    a {
+      font-size: 40px;
+    }
+  }
+
+  .menu-links a::after {
+    left: -30px;
+    bottom: -10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .nav-logo {
+    img {
+      left: 42px;
+    }
+  }
+
+  .menu-btn {
+    img {
+      right: 42px;
+    }
+  }
+
+  .opened-menu {
+    height: 614px;
+  }
+
+  .menu-links {
+    img {
+      left: -102px;
+      top: -26px;
+    }
+
+    a {
+      margin-top: 6px;
+      font-size: 35px;
+    }
+  }
+
+  .menu-links a::after {
+    left: -30px;
+    bottom: -10px;
+  }
+}

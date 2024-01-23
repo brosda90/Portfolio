@@ -1,0 +1,119 @@
+<div class="contact-area" id="contactMe">
+  <h2>
+    <span
+      *ngFor="let letter of letters; let i = index"
+      [ngStyle]="{ color: letter.colored ? '#00bc8f' : '#ffffff' }"
+      (mouseover)="toggleColor(i)"
+    >
+      {{ letter.char }}
+    </span>
+  </h2>
+  <div class="contact-form-container">
+    <div class="contact-area-headline">
+      <h3>Want to discuss a new project?</h3>
+      <p>
+        Say hello! let's discuss your
+        <span class="break">ideas and make it happen</span>
+      </p>
+    </div>
+    <form #myForm autocomplete="off">
+      <div class="input-group">
+        <input
+          type="text"
+          name="name"
+          required
+          [(ngModel)]="formData.name"
+          #nameField
+          (focus)="onFocus(nameField, nameLabel)"
+          (blur)="onBlur(nameField, nameLabel)"
+          (input)="onNameInput(nameField)"
+          [disabled]="sendingEmail"
+        />
+        <label #nameLabel>Your Name</label>
+      </div>
+      <span class="error-name-message" [class.show-error]="formData.nameError">
+        Your name is required
+      </span>
+
+      <div class="input-group">
+        <input
+          type="email"
+          name="email"
+          required
+          [(ngModel)]="formData.email"
+          #emailField
+          (focus)="onFocus(emailField, emailLabel)"
+          (blur)="onBlur(emailField, emailLabel)"
+          (input)="onEmailInput(emailField)"
+          [disabled]="sendingEmail"
+        />
+        <label #emailLabel>Your Email</label>
+      </div>
+      <span
+        class="error-email-message"
+        [class.show-error]="formData.emailError"
+      >
+        Your valid email is required
+      </span>
+
+      <div class="input-group">
+        <textarea
+          type="text"
+          name="message"
+          [(ngModel)]="formData.message"
+          #messageField
+          (focus)="onFocus(messageField, messageLabel)"
+          (blur)="onBlur(messageField, messageLabel)"
+          (input)="onMessageInput(messageField)"
+          [disabled]="sendingEmail"
+        ></textarea>
+        <label class="textarea-label" #messageLabel>Your message</label>
+      </div>
+
+      <span
+        class="error-empty-message"
+        [class.show-error]="formData.messageError"
+      >
+        Your message is empty
+      </span>
+
+      <div class="checkbox-container">
+        <label class="custom-checkbox">
+          <input type="checkbox" #checkBox (change)="onCheckboxChange()" />
+          <span class="checkmark"></span>
+        </label>
+        <div class="checkbox-text">
+          I've read the <a href="privacy-policy">privacy policy</a> and agree to
+          the processing of my data as outlined
+        </div>
+      </div>
+      <span
+        class="error-not-checked"
+        [class.show-error]="formData.checkboxError"
+      >
+        Please accept the privacy policy
+      </span>
+      <div class="button-container">
+        <div class="button-container">
+          <button
+            #sendButton
+            (click)="sendMail()"
+            [class.active]="isFormValid()"
+          >
+            {{ buttonText }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Div für die Anzeige der Nachricht "E-Mail wird gesendet" -->
+  <div *ngIf="sendingEmail" class="sending-email-message">
+    <p>Email wird gesendet...</p>
+  </div>
+
+  <!-- Div für die Anzeige der Nachricht "E-Mail wurde erfolgreich verschickt" -->
+  <div *ngIf="emailSent" class="email-sent-message">
+    <p>Email wurde erfolgreich verschickt!</p>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+.footer-area {
+  background-color: black;
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+
+  .left-side {
+    display: flex;
+    flex-direction: column;
+    padding-left: 100px;
+    img {
+      width: 66px;
+      padding-bottom: 16px;
+    }
+
+    span {
+      color: white;
+      font-size: 22px;
+      font-family: "Overpass";
+    }
+  }
+
+  .right-side {
+    display: flex;
+    flex-direction: column;
+    padding-right: 100px;
+
+    .icons {
+      img {
+        margin-right: 40px;
+        margin-bottom: 16px;
+        width: 40px;
+        transition: ease-in-out 0.2s;
+
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
+        }
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-family: "Overpass";
+      font-size: 20px;
+      padding-left: 15px;
+      transition: ease-in-out 0.2s;
+
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-area {
+    background-color: black;
+    height: 311px;
+    margin-top: -53px;
+    display: flex;
+    align-items: center;
+
+    flex-direction: column-reverse;
+    padding-bottom: 47px;
+
+    .left-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 0px;
+      margin-top: -18px;
+      img {
+        width: 70px;
+      }
+
+      span {
+        color: white;
+        font-size: 22px;
+        font-size: "Overpass";
+      }
+    }
+
+    .right-side {
+      display: flex;
+      flex-direction: column;
+      padding-right: 0px;
+
+      .icons {
+        img {
+          margin-right: 25px;
+          margin-left: 25px;
+          margin-bottom: 16px;
+          width: 40px;
+          transition: ease-in-out 0.2s;
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
+          }
+        }
+      }
+
+      a {
+        position: relative;
+        bottom: -104px;
+        text-decoration: none;
+        color: white;
+        font-family: "Overpass";
+        font-size: 22px;
+        padding-left: 0px;
+        transition: ease-in-out 0.2s;
+        margin-left: auto;
+        margin-right: auto;
+
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,526 @@
+// Header Styles
+.contact-area {
+  width: 100vw;
+
+  padding-bottom: 59px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  clip-path: polygon(0% 0, 100% 14%, 100% 100%, 0% 100%);
+
+  h2 {
+    font-size: 78px;
+    font-weight: 800;
+    font-family: "Syne";
+    color: #00bc8f;
+    position: relative;
+    left: -31%;
+    right: 69%;
+    bottom: -60px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  span.colored {
+    color: #808080;
+  }
+}
+
+h3 {
+  font-size: 32px;
+  font-family: "Overpass";
+  font-weight: 700;
+  text-align: center;
+  color: #00bc8f;
+  margin-bottom: -10px;
+}
+
+p {
+  font-size: 23px;
+  font-weight: 400;
+  font-family: "Overpass";
+  text-align: center;
+  color: #fffcf3;
+}
+
+// Bottom Border Style
+.border-bottom {
+  margin-top: -3px;
+  border-bottom: 2px solid white;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 11px;
+
+  button {
+    width: 270px;
+    height: 68px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: "Overpass";
+    color: #383838;
+    border: 4px solid #383838;
+    background-color: black;
+    transition: ease-in-out 0.2s;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .button-container button.active {
+    color: white; /* Neue Schriftfarbe */
+    border: 4px solid #fff; /* Neue Rahmenfarbe */
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .button-container button.active:hover {
+    color: black;
+    background-color: #fff;
+    border: 3px solid #00bc8f;
+    transform: scaleX(1.1);
+    transition: ease-in-out 0.5s;
+  }
+
+  button[disabled] {
+    background-color: black;
+    border-color: #383838;
+    color: #383838;
+    cursor: default; /* Optional: Ändern des Cursors, um zu zeigen, dass der Button nicht klickbar ist */
+  }
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  /* Weitere Styles nach Bedarf */
+}
+
+.custom-checkbox {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: black;
+  border: 2px solid white;
+}
+
+/* Hover-Effekt für den Checkmark */
+.custom-checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* Ändern der Hintergrundfarbe, wenn die Checkbox aktiviert ist */
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #00bc8f;
+}
+
+/* Zurücksetzen auf schwarzen Hintergrund, wenn die Checkbox deaktiviert wird */
+.custom-checkbox input:not(:checked) ~ .checkmark {
+  background-color: black;
+}
+
+/* Styles für das Checkmark-Symbol */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 5px;
+  top: 0px;
+  width: 9px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-text {
+  position: relative;
+  color: white;
+  font-size: 14px;
+  font-family: "Overpass";
+  left: -10px;
+  top: 6px;
+  padding-bottom: 2px;
+
+  a {
+    text-decoration: none;
+    color: #00bc8f;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
+    }
+  }
+}
+
+// Line Break Styles
+.break {
+  display: inline;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: -2px;
+  gap: 5px;
+}
+
+.sending-email-message,
+.email-sent-message {
+  /* Ihre vorhandenen Stile */
+  color: #00bc8f;
+  font-family: "Overpass";
+  font-size: 18px;
+  display: flex;
+  width: 350px;
+  height: 200px;
+  background-color: #0e0e0efa;
+  padding: 10px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  z-index: 10;
+  position: absolute;
+  border: 3px solid #00bc8f;
+
+  /* Hinzufügen der Animation */
+  animation: slideInFromBottom 1s ease-out;
+
+  p {
+    font-size: 32px;
+    font-family: "Syne";
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%); /* Startet außerhalb des Bildschirms unten */
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0); /* Endposition, zentriert auf dem Bildschirm */
+    opacity: 1;
+  }
+}
+
+// Input Group Styles
+.input-group {
+  position: relative;
+  margin-top: 7px;
+  border-bottom: 2px solid white;
+
+  input {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    font-family: "Overpass";
+    color: #fff;
+    border: none;
+    padding: 0 10px;
+    background: black;
+    outline: none;
+    padding-right: 50px;
+
+    &:hover {
+      border: 2px solid #fff;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-family: "Overpass";
+    color: #fff;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: 0.5s;
+    background-color: black;
+  }
+}
+
+.input-group input:focus + label,
+.input-group textarea:focus + label {
+  top: 30px;
+  font-size: 12px;
+}
+
+.input-group .textarea-label {
+  top: 13%;
+  transform: translateY(-50%);
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid white; /* Setzt den Fokusrahmen auf eine weiße Farbe */
+}
+
+// Textarea Styles
+textarea {
+  width: 100%;
+  height: 202px;
+  padding: 15px;
+  padding-right: 50px; /* Erhöhen Sie das Padding auf der rechten Seite */
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 0;
+  border: none;
+  resize: none;
+  word-wrap: break-word;
+  color: white;
+  font-family: "Overpass";
+  font-size: 18px;
+  padding-top: 11px;
+  background-color: black;
+}
+
+.error-name-message {
+  color: red;
+  font-size: 12px;
+  font-family: "Overpass";
+  opacity: 0; /* Standardmäßig unsichtbar */
+  transition: opacity 0.3s ease-in-out; /* Sanfter Übergang für die Opazität */
+}
+
+.error-name-message.show-error {
+  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+}
+
+.error-email-message {
+  color: red;
+  font-size: 12px;
+  font-family: "Overpass";
+  opacity: 0; /* Standardmäßig unsichtbar */
+  transition: opacity 0.3s ease-in-out; /* Sanfter Übergang für die Opazität */
+}
+
+.error-email-message.show-error {
+  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+}
+
+.error-empty-message {
+  color: red;
+  font-size: 12px;
+  font-family: "Overpass";
+  opacity: 0; /* Standardmäßig unsichtbar */
+  transition: opacity 0.3s ease-in-out; /* Sanfter Übergang für die Opazität */
+}
+
+.error-empty-message.show-error {
+  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+}
+
+.error-not-checked {
+  padding-left: 29px;
+  color: red;
+  font-size: 12px;
+  font-family: "Overpass";
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.error-not-checked.show-error {
+  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+}
+
+.error-placeholder {
+  visibility: hidden;
+  color: red;
+  font-size: 12px;
+  font-family: "Overpass";
+  height: 20px; /* Höhe anpassen, abhängig von der tatsächlichen Größe der Fehlermeldung */
+  padding-left: 32px;
+  transition: visibility 0.3s ease-in-out;
+}
+
+.error-not-checked.show-error {
+  visibility: visible; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+}
+
+// Mobile Contact Area Styles
+@media (max-width: 1550px) {
+  .contact-area h2 {
+    left: -25%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .contact-area h2 {
+    font-size: 72px;
+  }
+}
+
+@media (max-width: 1025px) {
+  .contact-area h2 {
+    font-size: 72px;
+    left: -200px;
+    bottom: -50px;
+  }
+}
+
+@media (max-width: 800px) {
+  .contact-area {
+    padding-bottom: 60px;
+    h2 {
+      left: -21%;
+      font-size: 58px;
+      top: 70px;
+    }
+
+    h3 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 21px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-area h2 {
+    left: -19%;
+    font-size: 58px;
+    top: 45px;
+  }
+}
+
+@media (max-width: 700px) {
+  .break {
+    display: block;
+  }
+
+  .contact-area h2 {
+    left: -16%;
+    font-size: 58px;
+    top: 80px;
+  }
+
+  .contact-area-headline {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 635px) {
+  .break {
+    display: block;
+  }
+
+  .contact-area h2 {
+    left: -14%;
+    font-size: 58px;
+    top: 55px;
+  }
+}
+
+@media (max-width: 600px) {
+  .back-home {
+    bottom: 22px;
+    right: 26px;
+  }
+
+  .contact-form-container {
+    max-width: 460px;
+    padding-left: 20px;
+    padding-right: 20px;
+    h3 {
+      font-size: 26px;
+    }
+
+    p {
+      font-size: 22px;
+    }
+  }
+}
+
+@media (max-width: 555px) {
+  .contact-area h2 {
+    left: -9px;
+  }
+
+  .checkbox-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 430px) {
+  .contact-area {
+    clip-path: polygon(0% 0, 100% 9%, 100% 100%, 0% 100%);
+
+    h2 {
+      font-size: 47px;
+      top: 54px;
+      margin-bottom: 59px;
+    }
+
+    .contact-form-container {
+      h3 {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+@media (max-width: 325px) {
+  .contact-area {
+    h2 {
+      font-size: 34px;
+      top: 54px;
+      margin-bottom: 59px;
+      left: -6px;
+    }
+
+    .contact-form-container {
+      h3 {
+        font-size: 21px;
+      }
+
+      p {
+        font-size: 19px;
+      }
+    }
+
+    button {
+      width: 221px;
+      height: 68px;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<div class="nav-logo">
+  <img src="./assets/img/Logo.png" alt="Logo" />
+</div>
+<div class="menu-btn">
+  <img [src]="menuButtonImage" alt="" (click)="toggleMenu()" />
+</div>
+
+<div class="opened-menu" [ngClass]="{ visible: menuOpen }">
+  <div class="menu-links">
+    <a
+      href="#aboutMe"
+      class="link-animation from-left hover-underline-animation"
+      >About me</a
+    >
+    <img src="./assets/img/underline_rectancle.png" alt="" />
+    <a (click)="scrollToMySkills()" class="link-animation from-right"
+      >My Skills</a
+    >
+    <img src="./assets/img/underline_rectancle.png" alt="" />
+    <a href="#portfolio" class="link-animation from-left">Portfolio</a>
+    <img src="./assets/img/underline_rectancle.png" alt="" />
+  </div>
+  <div class="menu-contact">
+    <div class="column">
+      <a>Say Hi!</a>
+      <p (click)="sendEmail()">hi&#64;sebastianbrosda.de</p>
+    </div>
+    <div class="menu-icons">
+      <img
+        (click)="openGithub()"
+        src="./assets/img/Icons/Github.png"
+        alt="Github"
+      />
+      <img
+        (click)="sendEmail()"
+        src="./assets/img/Icons/Email.png"
+        alt="email"
+      />
+      <img
+        (click)="openLinkedIn()"
+        src="./assets/img/Icons/LinkedIn.png"
+        alt="linkedIn"
+      />
+    </div>
+  </div>
+</div>

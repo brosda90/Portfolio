@@ -1,0 +1,27 @@
+.arrow-area {
+  height: 68px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: black;
+  padding-right: 107px;
+  margin-top: -54px;
+  padding-bottom: 93px;
+
+  img {
+    z-index: 200;
+    transition: ease-in-out 0.5;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+      transition: ease-in-out 0.5;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .arrow-area {
+    display: none;
+  }
+}

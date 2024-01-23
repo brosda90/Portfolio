@@ -1,0 +1,471 @@
+.number-container {
+  width: 88vw;
+  display: flex;
+  justify-content: end;
+  margin-left: auto;
+  margin-right: auto;
+
+  p {
+    font-family: "Syne";
+    font-size: 48px;
+    font-weight: 700;
+    text-align: right;
+    margin-bottom: -24px;
+  }
+}
+
+.projects-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 88vw;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+  perspective: 1000px;
+  margin-bottom: 25px;
+}
+
+.free-space {
+  height: 0px;
+}
+
+.image-container {
+  z-index: 20;
+  position: relative;
+}
+
+img {
+  z-index: 7;
+  max-width: 620px;
+  filter: grayscale(100%);
+  max-height: auto;
+  display: block;
+  transition: filter 0.8s ease;
+}
+
+.frame {
+  position: absolute;
+  bottom: -16px;
+  right: -16px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  img {
+    width: 70px;
+    height: 70px;
+    margin-right: -37px;
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+}
+
+.project-textarea {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  opacity: 0;
+
+  h2 {
+    font-family: "Syne";
+    max-width: 320px;
+    font-size: 45px;
+    font-weight: 800;
+    margin-bottom: -10px;
+  }
+
+  h3 {
+    font-family: "Overpass";
+    max-width: 297px;
+    font-size: 23px;
+    font-weight: 400;
+  }
+
+  p {
+    max-width: 501px;
+    text-wrap: wrap;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Overpass";
+    margin-bottom: 20px;
+  }
+}
+
+button {
+  font-family: "Overpass";
+  font-size: 23px;
+  margin-right: 16px;
+  width: 145px;
+  height: 65px;
+  gap: 86px;
+  font-weight: 400;
+  color: black;
+  border: 4px solid black;
+  background-color: transparent;
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    transform: scaleX(1.1);
+    transition: ease-in-out 0.2s;
+    color: white;
+    background-color: black;
+  }
+}
+
+.project-textarea.animate-class {
+  animation: slideOut 0.5s forwards;
+  opacity: 0;
+
+  h3 {
+    color: #00bc8f;
+  }
+}
+
+.project-textarea.animateMobile-class {
+  animation: slideOutMobile 0.5s forwards;
+  opacity: 0;
+
+  h3 {
+    color: #00bc8f;
+  }
+}
+
+.frame.animate-class {
+  border: 4px solid black;
+
+  img {
+    opacity: 1;
+    transform: rotate(260deg) scale(1.25);
+  }
+}
+
+.frame.animateMobile-class {
+  border: 4px solid black;
+
+  img {
+    opacity: 1;
+    transform: rotate(360deg) scale(1.25);
+    transition: ease 0.5s;
+  }
+}
+
+.image-colorize {
+  filter: grayscale(0%);
+  transition: filter 0.5s ease-in-out;
+}
+
+@keyframes slideOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(30%);
+  }
+}
+
+@keyframes slideOutMobile {
+  0% {
+    opacity: 0;
+    transform: translateX(-40%) translateY(-60%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%) translateY(10%);
+  }
+}
+
+@media (max-width: 1275px) {
+  button {
+    font-size: 21px;
+    margin-right: 12px;
+    width: 120px;
+    height: 51px;
+    gap: 86px;
+  }
+
+  img {
+    z-index: 7;
+    max-width: 530px;
+  }
+}
+
+@media (max-width: 1130px) {
+  .projects-container {
+    text-align: center;
+    height: 730px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 110px;
+    padding-left: 0px;
+
+    img {
+      max-width: 620px;
+    }
+
+    .frame {
+      justify-content: center;
+
+      img {
+        margin-bottom: -385px;
+        margin-right: 10px;
+      }
+    }
+
+    .project-textarea {
+      width: 70vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: ease 1.5s;
+      z-index: 10;
+    }
+  }
+}
+
+@media (max-width: 1025px) {
+  .number-container {
+    p {
+      font-family: "Syne";
+      font-size: 48px;
+      font-weight: 700;
+
+      margin-bottom: 8px;
+      margin-right: 4%;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .projects-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    flex-direction: column;
+
+    margin-bottom: 25px;
+
+    .frame {
+      justify-content: center;
+
+      img {
+        margin-bottom: -324px;
+        margin-right: 15px;
+      }
+    }
+
+    img {
+      max-width: 520px;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .projects-container {
+    height: 600px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 25px;
+
+    .frame {
+      justify-content: center;
+
+      img {
+        width: 55px;
+        height: 55px;
+        margin-bottom: -267px;
+        margin-right: 0px;
+      }
+    }
+
+    img {
+      max-width: 420px;
+    }
+  }
+}
+
+@media (max-width: 470px) {
+  .projects-container {
+    height: 536px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    flex-direction: column;
+
+    margin-bottom: 25px;
+
+    .frame {
+      justify-content: center;
+
+      img {
+        width: 45px;
+        height: 45px;
+        margin-bottom: -208px;
+        margin-right: 0px;
+      }
+    }
+
+    img {
+      max-width: 330px;
+    }
+  }
+
+  .project-textarea {
+    h2 {
+      font-family: "Syne";
+      max-width: 320px;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: -10px;
+    }
+
+    h3 {
+      font-family: "Overpass";
+      max-width: 297px;
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    p {
+      max-width: 300px;
+      text-wrap: wrap;
+      font-size: 16px;
+      font-weight: 400;
+      font-family: "Overpass";
+      margin-bottom: 20px;
+      margin-top: -4px;
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  .number-container {
+    p {
+      font-family: "Syne";
+      font-size: 30px;
+      font-weight: 700;
+
+      margin-bottom: 8px;
+      margin-right: 4%;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .projects-container {
+    img {
+      max-width: 280px;
+    }
+
+    .frame {
+      justify-content: center;
+
+      img {
+        margin-bottom: -173px;
+      }
+    }
+
+    button {
+      font-size: 21px;
+      margin-right: 10px;
+      width: 110px;
+      height: 48px;
+    }
+  }
+}
+
+@media (max-width: 345px) {
+  .projects-container {
+    button {
+      font-size: 18px;
+      margin-right: 12px;
+      width: 92px;
+      height: 48px;
+    }
+  }
+}
+
+@media (max-width: 325px) {
+  .projects-container {
+    width: 77vw;
+    button {
+      font-size: 18px;
+      margin-right: 12px;
+      width: 92px;
+      height: 41px;
+      border: 3px solid black;
+    }
+  }
+}
+
+@media (max-width: 315px) {
+  .number-container p {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: -7px;
+    margin-right: 0%;
+    margin-top: -8px;
+  }
+  .projects-container {
+    margin-bottom: 0px;
+    img {
+      max-width: 230px;
+    }
+
+    .frame {
+      bottom: -8px;
+      right: -8px;
+
+      img {
+        width: 40px;
+        height: 40px;
+        margin-bottom: -144px;
+      }
+    }
+
+    button {
+      font-size: 20px;
+      margin-right: 0px;
+      width: 149px;
+      height: 48px;
+      margin-bottom: 9px;
+      color: black;
+    }
+  }
+
+  .project-textarea {
+    h2 {
+      max-width: 300px;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: -12px;
+      margin-top: -1px;
+    }
+    h3 {
+      font-size: 18px;
+    }
+    p {
+      font-size: 15px;
+      margin-bottom: 13px;
+      margin-top: -6px;
+    }
+  }
+
+  .frame.animateMobile-class {
+    border: 2px solid black;
+  }
+}

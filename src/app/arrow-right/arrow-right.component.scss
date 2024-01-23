@@ -1,0 +1,99 @@
+.arrow-container {
+  height: 330px;
+  margin-left: 124px;
+  margin-right: auto;
+  width: 43vw;
+  overflow-x: hidden !important;
+}
+
+.arrow-right {
+  display: flex;
+  height: 250px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-anchor: auto;
+  width: 88vw;
+  overflow-x: hidden !important;
+}
+
+.arrow-right img {
+  transition: transform 0.2s ease;
+  overflow-x: hidden !important;
+}
+
+/* This will move the arrow to the bottom left on hover */
+.moved {
+  animation: movedAnimation 0.3s ease forwards;
+  overflow-x: hidden !important;
+}
+
+@keyframes movedAnimation {
+  0% {
+    transform: translate(0, 0); /* Starting position */
+  }
+  20% {
+    transform: translate(20px, 20px); /* Slightly moved */
+  }
+  40% {
+    transform: translate(40px, 40px); /* Further moved */
+  }
+  60% {
+    transform: translate(60px, 60px); /* Even more moved */
+  }
+  80% {
+    transform: translate(80px, 80px); /* Almost at final position */
+  }
+  100% {
+    transform: translate(100px, 100px); /* Final position */
+  }
+}
+
+@media (max-width: 1025px) {
+  .arrow-container {
+    height: 330px;
+    margin-left: 140px;
+    width: 43vw;
+  }
+}
+
+@media (max-width: 770px) {
+  .arrow-right img {
+    padding-right: 0px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 555px) {
+  .arrow-container {
+    height: 255px;
+  }
+  .arrow-right {
+    img {
+      width: 164.67px;
+      height: 170px;
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  .arrow-container {
+    margin-left: 62px;
+  }
+}
+
+@media (max-width: 315px) {
+  .arrow-container {
+    width: 47vw;
+    margin-left: 0px;
+
+    .arrow-right {
+      height: 250px;
+      width: 44vw;
+      margin-left: 11px;
+      img {
+        width: 129.67px;
+        height: 133px;
+      }
+    }
+  }
+}
