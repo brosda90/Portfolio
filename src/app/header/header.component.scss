@@ -168,7 +168,7 @@ button {
   justify-content: space-between;
   margin-bottom: 42px;
 
-  a {
+  p {
     transform: rotate(-90deg);
     padding-left: 18px;
     text-decoration: none;
@@ -267,7 +267,7 @@ button {
     }
   }
 
-  .header-bottom a {
+  .header-bottom p {
     font-size: 22px;
 
     font-weight: 300;
@@ -305,7 +305,7 @@ button {
 }
 
 @media (max-width: 500px) {
-  .header-bottom a {
+  .header-bottom p {
     margin-right: -88px;
   }
 
@@ -315,8 +315,8 @@ button {
 }
 
 @media (max-width: 470px) {
-  .header-bottom a {
-    margin-right: -135px;
+  .header-bottom p {
+    margin-right: 8px;
   }
 }
 
@@ -353,7 +353,7 @@ button {
     font-size: 20px;
   }
 
-  .header-bottom a {
+  .header-bottom p {
     font-size: 19px;
   }
 }
@@ -395,6 +395,7 @@ button {
 
   .scroll-down-container {
     font-size: 20px;
+    margin-left: -36px;
 
     p {
       margin-bottom: 0px;
@@ -404,9 +405,9 @@ button {
   .header-bottom {
     margin-right: 0px;
 
-    a {
+    p {
       font-size: 19px;
-      margin-top: 71px;
+      margin-top: 16px;
       padding-left: 0px;
       margin-left: 0px;
     }

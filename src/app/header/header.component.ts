@@ -18,4 +18,11 @@ export class HeaderComponent {
       behavior: 'smooth',
     });
   }
+
+    /**
+   * Opens the email client with a new email to a specific address.
+   */
+    sendEmail() {
+      window.location.href = 'mailto:s@sebastianbrosda.de';
+    }
 }
