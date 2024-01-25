@@ -8,6 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './footer-mobile.component.scss',
 })
 export class FooterMobileComponent {
+    /**
+   * Scrolls to contact area.
+   */ 
   scrollToTop(): void {
     window.scroll({
       top: 0,

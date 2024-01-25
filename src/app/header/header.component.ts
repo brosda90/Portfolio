@@ -10,6 +10,9 @@ import { Component } from '@angular/core';
 export class HeaderComponent {
   constructor() {}
 
+  /**
+   * Scrolls to contact area.
+   */
   scrollToContact(): void {
     document.getElementById('contactMe')?.scrollIntoView({
       behavior: 'smooth',

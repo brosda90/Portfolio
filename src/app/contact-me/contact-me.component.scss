@@ -1,56 +1,108 @@
-// Header Styles
+$font-family-syne: "Syne";
+$font-family-overpass: "Overpass";
+$font-weight-bold: 800;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$color-highlight: #00bc8f;
+$color-black: black;
+$color-white: white;
+$color-grey: #808080;
+$color-disabled: #383838;
+$color-error: red;
+$transition-fast: 0.2s ease-in-out;
+$transition-medium: 0.5s ease-in-out;
+$border-standard: 2px solid $color-white;
+
+@mixin hover-pointer {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin focus-outline {
+  &:focus {
+    outline: $border-standard;
+  }
+}
+
+@mixin error-message {
+  color: $color-error;
+  font-size: 12px;
+  font-family: $font-family-overpass;
+  opacity: 0;
+  transition: opacity $transition-medium;
+
+  &.show-error {
+    opacity: 1;
+  }
+}
+
+@mixin input-style {
+  width: 100%;
+  font-size: 18px;
+  font-family: $font-family-overpass;
+  color: $color-white;
+  background: $color-black;
+  border: none;
+  outline: none;
+  transition: $transition-fast;
+
+  &:hover {
+    border: $border-standard;
+  }
+
+  &:focus {
+    @include focus-outline;
+  }
+}
+
 .contact-area {
   width: 100vw;
-
   padding-bottom: 59px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: $color-black;
   clip-path: polygon(0% 0, 100% 14%, 100% 100%, 0% 100%);
 
   h2 {
     font-size: 78px;
-    font-weight: 800;
-    font-family: "Syne";
-    color: #00bc8f;
+    font-weight: $font-weight-bold;
+    font-family: $font-family-syne;
+    color: $color-highlight;
     position: relative;
     left: -31%;
     right: 69%;
     bottom: -60px;
-
-    &:hover {
-      cursor: pointer;
-    }
+    @include hover-pointer;
   }
 
   span.colored {
-    color: #808080;
+    color: $color-grey;
   }
 }
 
 h3 {
   font-size: 32px;
-  font-family: "Overpass";
+  font-family: $font-family-overpass;
   font-weight: 700;
   text-align: center;
-  color: #00bc8f;
+  color: $color-highlight;
   margin-bottom: -10px;
 }
 
 p {
   font-size: 23px;
-  font-weight: 400;
-  font-family: "Overpass";
+  font-weight: $font-weight-normal;
+  font-family: $font-family-overpass;
   text-align: center;
-  color: #fffcf3;
+  color: $color-white;
 }
 
-// Bottom Border Style
 .border-bottom {
   margin-top: -3px;
-  border-bottom: 2px solid white;
+  border-bottom: $border-standard;
 }
 
 .button-container {
@@ -62,128 +114,116 @@ p {
     width: 270px;
     height: 68px;
     font-size: 23px;
-    font-weight: 500;
-    font-family: "Overpass";
-    color: #383838;
-    border: 4px solid #383838;
-    background-color: black;
-    transition: ease-in-out 0.2s;
+    font-weight: $font-weight-medium;
+    font-family: $font-family-overpass;
+    color: $color-disabled;
+    border: 4px solid $color-disabled;
+    background-color: $color-black;
+    transition: $transition-fast;
+    @include hover-pointer;
 
-    &:hover {
-      cursor: pointer;
+    &.active {
+      color: $color-white;
+      border: 4px solid $color-white;
+      transition: transform $transition-medium;
+
+      &:hover {
+        color: $color-black;
+        background-color: $color-white;
+        border: 3px solid $color-highlight;
+        transform: scaleX(1.1);
+        transition: $transition-medium;
+      }
     }
-  }
 
-  .button-container button.active {
-    color: white; /* Neue Schriftfarbe */
-    border: 4px solid #fff; /* Neue Rahmenfarbe */
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .button-container button.active:hover {
-    color: black;
-    background-color: #fff;
-    border: 3px solid #00bc8f;
-    transform: scaleX(1.1);
-    transition: ease-in-out 0.5s;
-  }
-
-  button[disabled] {
-    background-color: black;
-    border-color: #383838;
-    color: #383838;
-    cursor: default; /* Optional: Ändern des Cursors, um zu zeigen, dass der Button nicht klickbar ist */
+    &[disabled] {
+      background-color: $color-black;
+      border-color: $color-disabled;
+      color: $color-disabled;
+      cursor: default;
+    }
   }
 }
 
 .checkbox-container {
   display: flex;
   align-items: center;
-  /* Weitere Styles nach Bedarf */
+  gap: 5px;
 }
 
 .custom-checkbox {
   position: relative;
   padding-left: 35px;
-  cursor: pointer;
+  @include hover-pointer;
   user-select: none;
-}
 
-.custom-checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
 
-.checkmark {
-  position: absolute;
-  top: -4px;
-  left: 0;
-  height: 22px;
-  width: 22px;
-  background-color: black;
-  border: 2px solid white;
-}
+  .checkmark {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: $color-black;
+    border: $border-standard;
 
-/* Hover-Effekt für den Checkmark */
-.custom-checkbox:hover input ~ .checkmark {
-  background-color: #ccc;
-}
+    &:hover {
+      background-color: $color-grey;
+    }
 
-/* Ändern der Hintergrundfarbe, wenn die Checkbox aktiviert ist */
-.custom-checkbox input:checked ~ .checkmark {
-  background-color: #00bc8f;
-}
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 5px;
+      top: 0px;
+      width: 9px;
+      height: 14px;
+      border: solid $color-white;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+  }
 
-/* Zurücksetzen auf schwarzen Hintergrund, wenn die Checkbox deaktiviert wird */
-.custom-checkbox input:not(:checked) ~ .checkmark {
-  background-color: black;
-}
+  input:checked ~ .checkmark {
+    background-color: $color-highlight;
+    &:after {
+      display: block;
+    }
+  }
 
-/* Styles für das Checkmark-Symbol */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.custom-checkbox input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.custom-checkbox .checkmark:after {
-  left: 5px;
-  top: 0px;
-  width: 9px;
-  height: 14px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
+  input:not(:checked) ~ .checkmark {
+    background-color: $color-black;
+  }
 }
 
 .checkbox-text {
   position: relative;
-  color: white;
+  color: $color-white;
   font-size: 14px;
-  font-family: "Overpass";
+  font-family: $font-family-overpass;
   left: -10px;
   top: 6px;
   padding-bottom: 2px;
 
   a {
     text-decoration: none;
-    color: #00bc8f;
+    color: $color-highlight;
+    @include hover-pointer;
 
     &:hover {
-      cursor: pointer;
-      transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
+      transform: scale(1.1);
     }
   }
 }
 
-// Line Break Styles
 .break {
   display: inline;
 }
@@ -198,9 +238,8 @@ p {
 
 .sending-email-message,
 .email-sent-message {
-  /* Ihre vorhandenen Stile */
-  color: #00bc8f;
-  font-family: "Overpass";
+  color: $color-highlight;
+  font-family: $font-family-overpass;
   font-size: 18px;
   display: flex;
   width: 350px;
@@ -212,14 +251,12 @@ p {
   align-items: center;
   z-index: 10;
   position: absolute;
-  border: 3px solid #00bc8f;
-
-  /* Hinzufügen der Animation */
+  border: 3px solid $color-highlight;
   animation: slideInFromBottom 1s ease-out;
 
   p {
     font-size: 32px;
-    font-family: "Syne";
+    font-family: $font-family-syne;
   }
 }
 
@@ -244,11 +281,11 @@ p {
     width: 100%;
     height: 50px;
     font-size: 18px;
-    font-family: "Overpass";
+    font-family: $font-family-overpass;
     color: #fff;
     border: none;
     padding: 0 10px;
-    background: black;
+    background:$color-black;
     outline: none;
     padding-right: 50px;
 
@@ -263,12 +300,12 @@ p {
     left: 10px;
     transform: translateY(-50%);
     font-size: 16px;
-    font-family: "Overpass";
-    color: #fff;
+    font-family: $font-family-overpass;
+    color: $color-white;
     padding: 0 5px;
     pointer-events: none;
     transition: 0.5s;
-    background-color: black;
+    background-color:$color-black;
   }
 }
 
@@ -285,91 +322,57 @@ p {
 
 input:focus,
 textarea:focus {
-  outline: 2px solid white; /* Setzt den Fokusrahmen auf eine weiße Farbe */
+  outline: $border-standard;
 }
 
-// Textarea Styles
 textarea {
   width: 100%;
   height: 202px;
   padding: 15px;
-  padding-right: 50px; /* Erhöhen Sie das Padding auf der rechten Seite */
+  padding-right: 50px;
   background-color: transparent;
   border: 2px solid transparent;
   border-radius: 0;
   border: none;
   resize: none;
   word-wrap: break-word;
-  color: white;
-  font-family: "Overpass";
+  color: $color-white;
+  font-family: $font-family-overpass;
   font-size: 18px;
   padding-top: 11px;
-  background-color: black;
+  background-color: $color-black;
 }
 
 .error-name-message {
-  color: red;
-  font-size: 12px;
-  font-family: "Overpass";
-  opacity: 0; /* Standardmäßig unsichtbar */
-  transition: opacity 0.3s ease-in-out; /* Sanfter Übergang für die Opazität */
-}
-
-.error-name-message.show-error {
-  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+  @include error-message;
 }
 
 .error-email-message {
-  color: red;
-  font-size: 12px;
-  font-family: "Overpass";
-  opacity: 0; /* Standardmäßig unsichtbar */
-  transition: opacity 0.3s ease-in-out; /* Sanfter Übergang für die Opazität */
-}
-
-.error-email-message.show-error {
-  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+  @include error-message;
 }
 
 .error-empty-message {
-  color: red;
-  font-size: 12px;
-  font-family: "Overpass";
-  opacity: 0; /* Standardmäßig unsichtbar */
-  transition: opacity 0.3s ease-in-out; /* Sanfter Übergang für die Opazität */
-}
-
-.error-empty-message.show-error {
-  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+  @include error-message;
 }
 
 .error-not-checked {
   padding-left: 29px;
-  color: red;
-  font-size: 12px;
-  font-family: "Overpass";
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.error-not-checked.show-error {
-  opacity: 1; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+  @include error-message;
 }
 
 .error-placeholder {
   visibility: hidden;
-  color: red;
+  color: $color-error;
   font-size: 12px;
-  font-family: "Overpass";
-  height: 20px; /* Höhe anpassen, abhängig von der tatsächlichen Größe der Fehlermeldung */
+  font-family: $font-family-overpass;
+  height: 20px;
   padding-left: 32px;
-  transition: visibility 0.3s ease-in-out;
+  transition: visibility $transition-medium;
 }
 
 .error-not-checked.show-error {
-  visibility: visible; /* Sichtbar machen, wenn die Klasse 'show-error' vorhanden ist */
+  visibility: visible;
 }
-
 // Mobile Contact Area Styles
 @media (max-width: 1550px) {
   .contact-area h2 {

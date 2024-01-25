@@ -32,12 +32,20 @@ export class MySkillsComponent implements AfterViewInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+  /**
+   * ngAfterViewInit is called after the view has been initialized.
+   * If the platform is a browser, a scroll listener is added.
+   */
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.listenToScroll();
     }
   }
 
+  /**
+   * Adds a scroll listener to the window.
+   * If the animation has not been triggered yet and the first icon is in the viewport, the icons are animated.
+   */
   listenToScroll() {
     window.addEventListener('scroll', () => {
       if (
@@ -52,10 +60,19 @@ export class MySkillsComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Determines the offset based on the window width.
+   * @returns {number} - Returns -500 if the window width is less than 1130, otherwise -300.
+   */
   getOffset(): number {
     return window.innerWidth < 1130 ? -500 : -300;
   }
 
+  /**
+   * Determines whether an element is in the viewport.
+   * @param {ElementRef} element - The element to check.
+   * @returns {boolean} - Returns true if the element is in the viewport, otherwise false.
+   */
   isInViewport(element: ElementRef): boolean {
     const bounding = element.nativeElement.getBoundingClientRect();
     const offset = this.getOffset();
@@ -69,9 +86,12 @@ export class MySkillsComponent implements AfterViewInit {
     );
   }
 
+  /**
+   * Animates the icons by adding the class 'animate-icon' and changing the color of the text.
+   */
   animateIcons() {
     const iconArray = this.iconElements.toArray();
-    this.shuffleArray(iconArray); // Mischen der Elemente
+    this.shuffleArray(iconArray); // Shuffle the elements
 
     iconArray.forEach((icon, index) => {
       const imgElement = icon.nativeElement.querySelector('img');
@@ -82,12 +102,15 @@ export class MySkillsComponent implements AfterViewInit {
         imgElement.addEventListener('animationend', () => {
           pElement.style.color = '#00bc8f';
         });
-      }, index * 3000);
+      }, index * 1500);
     });
     this.renderer.addClass(this.mySkillsTitle.nativeElement, 'highlight-text');
   }
 
-  // Hilfsfunktion zum Mischen der Array-Elemente
+  /**
+   * Shuffles the elements of an array.
+   * @param {any[]} array - The array to shuffle.
+   */
   shuffleArray(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

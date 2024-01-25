@@ -1,6 +1,26 @@
+$font-family-syne: "Syne";
+$font-family-overpass: "Overpass";
+$font-weight-bold: 800;
+$font-weight-normal: 400;
+$color-highlight: #00bc8f;
+$color-black: black;
+$color-white: white;
+$transition-fast: 0.2s ease-in-out;
+$transition-medium: 0.5s ease-in-out;
+$transition-slow: 4s ease;
+
+@mixin hover-effect {
+  &:hover {
+    cursor: pointer;
+    transform: scaleX(1.1);
+    background-color: $color-black;
+    color: $color-white;
+    transition: $transition-fast;
+  }
+}
+
 .about-container {
   width: 88vw;
-
   margin-bottom: 26px;
   display: flex;
   flex-direction: column;
@@ -12,22 +32,22 @@
   .about-me-text {
     h2 {
       font-size: 78px;
-      font-family: "Syne";
-      font-weight: 800;
+      font-family: $font-family-syne;
+      font-weight: $font-weight-bold;
       margin-bottom: 26px;
       padding-left: 22px;
 
       &:hover {
-        color: #00bc8f;
-        transition: color 0.5s;
+        color: $color-highlight;
+        transition: $transition-medium;
       }
     }
   }
 }
 
 .highlight-text {
-  color: #00bc8f;
-  transition: color 0.5s;
+  color: $color-highlight;
+  transition: $transition-medium;
   text-shadow: 0px 2px 4px rgba(0, 156, 118, 0.49);
 }
 
@@ -46,8 +66,8 @@
     padding-right: 30px;
     margin-top: 0;
     font-size: 23px;
-    font-weight: 400;
-    font-family: "Overpass";
+    font-weight: $font-weight-normal;
+    font-family: $font-family-overpass;
     padding-left: 22px;
 
     button {
@@ -58,20 +78,14 @@
       width: 213px;
       height: 68px;
       font-size: 23px;
-      font-weight: 400;
-      font-family: "Overpass";
-      border: 4px solid black;
+      font-weight: $font-weight-normal;
+      font-family: $font-family-overpass;
+      border: 4px solid $color-black;
       background-color: transparent;
-      transition: ease-in-out 0.2s;
+      transition: $transition-fast;
       margin-top: 48px;
 
-      &:hover {
-        cursor: pointer;
-        transform: scaleX(1.1);
-        background-color: black;
-        color: white;
-        transition: ease-in-out 0.2s;
-      }
+      @include hover-effect;
     }
   }
 
@@ -82,42 +96,43 @@
 
 .image-container {
   position: relative;
-  /* Adjust to your needs, ensuring the frame fits as expected */
+
+  img {
+    max-width: 533px;
+    transition: $transition-medium;
+    filter: grayscale(100%);
+
+    &:hover {
+      filter: grayscale(15%);
+    }
+  }
+
+  .frame {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border: 4px solid transparent;
+    box-sizing: border-box;
+    pointer-events: none;
+    transition: $transition-fast;
+
+    &:hover {
+      border-color: $color-black;
+    }
+  }
 }
 
-.image-container img {
-  max-width: 533px;
-  transition: all 0.5s ease-in-out;
-  filter: grayscale(100%); /* Start with a grayscale image */
-}
+.animate-image {
+  img {
+    filter: grayscale(15%);
+    transition: $transition-slow;
+  }
 
-.image-container:hover img {
-  filter: grayscale(15%); /* Remove the grayscale filter on hover */
-}
-
-.image-container .frame {
-  position: absolute;
-  top: 10px; /* 16px downwards */
-  left: 10px; /* 16px to the right */
-  width: calc(100% + 4px); /* Width of the frame */
-  height: calc(100% + 4px); /* Height of the frame */
-  border: 4px solid transparent; /* Initially transparent border */
-  box-sizing: border-box;
-  pointer-events: none; /* Ensures the frame doesn't interfere with mouse events */
-  transition: all 0.2s ease-in-out;
-}
-
-.image-container:hover .frame {
-  border-color: black; /* Border color appears on hover */
-}
-
-.animate-image img {
-  filter: grayscale(15%);
-  transition: filter 4s ease;
-}
-
-.animate-image .frame {
-  border-color: black; /* Border color appears on hover */
+  .frame {
+    border-color: $color-black;
+  }
 }
 
 @media (max-width: 1120px) {
@@ -132,6 +147,7 @@
       }
     }
   }
+
   .main-container {
     justify-content: center;
     flex-direction: column;
@@ -141,6 +157,7 @@
       width: 57vw;
       margin-bottom: 50px;
       padding-right: 0px;
+
       button {
         display: none;
       }

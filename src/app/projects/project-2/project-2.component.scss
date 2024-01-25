@@ -1,3 +1,43 @@
+$font-family-syne: "Syne";
+$font-family-overpass: "Overpass";
+$color-black: black;
+$color-highlight: #00bc8f;
+$color-white: white;
+$transition-fast: 0.2s ease-in-out;
+$transition-opacity-transform: opacity 0.5s, transform 0.5s;
+
+@mixin hover-color($text-color, $background-color) {
+  &:hover {
+    cursor: pointer;
+    color: $text-color;
+    background-color: $background-color;
+    transform: scaleX(1.1);
+    transition: color $transition-fast, background-color $transition-fast,
+      transform $transition-fast;
+  }
+}
+
+
+@mixin animate-frame {
+  border: 4px solid $color-black;
+
+  img {
+    opacity: 1;
+    transform: rotate(110deg) scale(1.25);
+    transition: $transition-opacity-transform;
+  }
+}
+
+@mixin animate-mobile-frame {
+  border: 4px solid $color-black;
+
+  img {
+    opacity: 1;
+    transform: rotate(360deg) scale(1.25);
+    transition: $transition-opacity-transform;
+  }
+}
+
 .number-container {
   width: 88vw;
   display: flex;
@@ -6,7 +46,7 @@
   margin-right: auto;
 
   p {
-    font-family: "Syne";
+    font-family: $font-family-syne;
     font-size: 48px;
     font-weight: 700;
     text-align: right;
@@ -20,6 +60,7 @@
   width: 88vw;
   padding-top: 20px;
   padding-bottom: 20px;
+  padding-left: 20px;
   display: flex;
   flex-direction: row-reverse;
   perspective: 1000px;
@@ -47,20 +88,19 @@ img {
 .frame {
   position: absolute;
   bottom: -16px;
-  right: 16px;
+  right: -16px;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
-
   img {
     width: 70px;
     height: 70px;
     margin-left: -37px;
     opacity: 0;
-    transition: opacity 0.5s, transform 0.5s;
+    transition: $transition-opacity-transform;
   }
 }
 
@@ -73,7 +113,7 @@ img {
   opacity: 0;
 
   h2 {
-    font-family: "Syne";
+    font-family: $font-family-syne;
     max-width: 320px;
     font-size: 45px;
     font-weight: 800;
@@ -81,10 +121,11 @@ img {
   }
 
   h3 {
-    font-family: "Overpass";
+    font-family: $font-family-overpass;
     max-width: 297px;
     font-size: 23px;
     font-weight: 400;
+ 
   }
 
   p {
@@ -92,31 +133,24 @@ img {
     text-wrap: wrap;
     font-size: 16px;
     font-weight: 400;
-    font-family: "Overpass";
+    font-family: $font-family-overpass;
     margin-bottom: 20px;
   }
 }
 
 button {
-  font-family: "Overpass";
+  font-family: $font-family-overpass;
   font-size: 23px;
   margin-right: 16px;
   width: 145px;
   height: 65px;
   gap: 86px;
   font-weight: 400;
-  color: black;
-  border: 4px solid black;
-  background-color: transparent;
-  transition: ease-in-out 0.2s;
-
-  &:hover {
-    cursor: pointer;
-    transform: scaleX(1.1);
-    transition: ease-in-out 0.2s;
-    color: white;
-    background-color: black;
-  }
+  color: $color-black;
+  border: 4px solid $color-black;
+  background-color: $color-white;
+  transition: $transition-fast;
+  @include hover-color($color-white, $color-black);
 }
 
 .project-textarea.animate-class {
@@ -124,7 +158,7 @@ button {
   opacity: 0;
 
   h3 {
-    color: #00bc8f;
+    color: $color-highlight;
   }
 }
 
@@ -133,32 +167,21 @@ button {
   opacity: 0;
 
   h3 {
-    color: #00bc8f;
+    color: $color-highlight;
   }
 }
 
 .frame.animate-class {
-  border: 4px solid black;
-
-  img {
-    opacity: 1;
-    transform: rotate(110deg) scale(1.25);
-  }
+  @include animate-frame;
 }
 
 .frame.animateMobile-class {
-  border: 4px solid black;
-
-  img {
-    opacity: 1;
-    transform: rotate(360deg) scale(1.25);
-    transition: ease 0.5s;
-  }
+  @include animate-mobile-frame;
 }
 
 .image-colorize {
   filter: grayscale(0%);
-  transition: filter 0.5s ease-in-out;
+  transition: filter 0;
 }
 
 @keyframes slideOut {
@@ -182,6 +205,7 @@ button {
     transform: translateX(0%) translateY(10%);
   }
 }
+
 
 @media (max-width: 1275px) {
   button {
@@ -238,10 +262,8 @@ button {
 @media (max-width: 1025px) {
   .number-container {
     p {
-      font-family: "Syne";
       font-size: 48px;
       font-weight: 700;
-
       margin-bottom: 8px;
       margin-left: 4%;
     }
@@ -324,7 +346,6 @@ button {
 
   .project-textarea {
     h2 {
-      font-family: "Syne";
       max-width: 320px;
       font-size: 36px;
       font-weight: 800;
@@ -332,7 +353,6 @@ button {
     }
 
     h3 {
-      font-family: "Overpass";
       max-width: 297px;
       font-size: 20px;
       font-weight: 400;
@@ -343,7 +363,6 @@ button {
       text-wrap: wrap;
       font-size: 16px;
       font-weight: 400;
-      font-family: "Overpass";
       margin-bottom: 20px;
       margin-top: -4px;
     }
@@ -353,10 +372,8 @@ button {
 @media (max-width: 430px) {
   .number-container {
     p {
-      font-family: "Syne";
       font-size: 30px;
       font-weight: 700;
-
       margin-bottom: 8px;
       margin-left: 4%;
     }

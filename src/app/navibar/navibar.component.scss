@@ -1,3 +1,11 @@
+$font-family-syne: "Syne";
+$color-black: black;
+$color-white: white;
+$color-offWhite: #fffcf3;
+$color-highlight: #00bc8f;
+$transition-fast: 0.3s ease;
+$transition-normal: 0.5s ease;
+
 .nav-logo img {
   position: absolute;
   top: 32px;
@@ -12,10 +20,14 @@
   position: absolute;
   top: 36px;
   right: 50px;
+
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .opened-menu {
-  background-color: #fffcf3;
+  background-color: $color-offWhite;
   width: 100vw;
   height: 1000px;
   display: flex;
@@ -25,11 +37,11 @@
   top: 0;
   left: 0;
   z-index: 50;
-  transform: translateY(-100%); // Start off-screen
-  transition: transform 0.5s ease; // Smooth transition for sliding effect
+  transform: translateY(-100%);
+  transition: $transition-normal;
 
   &.visible {
-    transform: translateY(0); // Slide into view
+    transform: translateY(0);
 
     a,
     p,
@@ -52,10 +64,10 @@
   a {
     position: relative;
     font-size: 98px;
-    font-family: syne;
+    font-family: $font-family-syne;
     font-weight: 700;
     margin-top: 25px;
-    color: black;
+    color: $color-black;
     text-decoration: none;
 
     &::after {
@@ -65,14 +77,14 @@
       bottom: -25px;
       width: 0;
       height: 4px;
-      background: black;
-      transition: width 0.3s ease, ease 0.3s; // Zwei-Phasen-Übergang
+      background: $color-black;
+      transition: width 0.3s ease, ease 0.3s;
     }
 
     &:hover {
       &::after {
-        width: 50%; // Zuerst die volle Breite
-        left: 50%; // Dann nach links verschieben, um nur 50% zu bedecken
+        width: 50%;
+        left: 50%;
       }
 
       + img {
@@ -111,13 +123,13 @@
     padding-left: 72px;
     font-size: 82px;
     text-decoration: none;
-    font-family: syne;
+    font-family: $font-family-syne;
     font-weight: 800;
-    color: #ffffff;
+    color: $color-white;
   }
 
   p {
-    color: white;
+    color: $color-white;
     font-size: 22px;
     margin-top: 0px;
     padding-left: 78px;
@@ -165,15 +177,15 @@
 }
 
 .opened-menu.visible .menu-contact {
-  animation: backgroundFade 1s ease forwards; // Anwendung der Animation nur wenn .opened-menu sichtbar ist
+  animation: backgroundFade 1s ease forwards;
 }
 
 @keyframes backgroundFade {
   from {
-    background-color: #fffcf3; // Startfarbe (gleich wie .opened-menu)
+    background-color: $color-offWhite;
   }
   to {
-    background-color: black; // Endfarbe
+    background-color: $color-black;
   }
 }
 

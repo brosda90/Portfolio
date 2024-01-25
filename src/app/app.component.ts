@@ -6,22 +6,22 @@ import { NavibarComponent } from './navibar/navibar.component';
 import { HeaderComponent } from './header/header.component';
 import { AboutMeComponent } from './about-me/about-me.component';
 import { MySkillsComponent } from './my-skills/my-skills.component';
-import { ArrowLeftComponent } from './arrow-left/arrow-left.component';
-import { ArrowRightComponent } from './arrow-right/arrow-right.component';
+import { ArrowLeftComponent } from './animations/arrow-left/arrow-left.component';
+import { ArrowRightComponent } from './animations/arrow-right/arrow-right.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
-import { Project1Component } from './project-1/project-1.component';
-import { Project2Component } from './project-2/project-2.component';
-import { Project3Component } from './project-3/project-3.component';
-import { Project4Component } from './project-4/project-4.component';
-import { FooterComponent } from './footer/footer.component';
+import { Project1Component } from './projects/project-1/project-1.component';
+import { Project2Component } from './projects/project-2/project-2.component';
+import { Project3Component } from './projects/project-3/project-3.component';
+import { Project4Component } from './projects/project-4/project-4.component';
+import { FooterComponent } from './footers/footer/footer.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { MainSiteComponent } from './main-site/main-site.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { ContactMeComponent } from './contact-me/contact-me.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
-import { ArrowHomeComponent } from './arrow-home/arrow-home.component';
-import { ArrowLeftOutsideComponent } from './arrow-left-outside/arrow-left-outside.component';
+import { FooterMobileComponent } from './footers/footer-mobile/footer-mobile.component';
+import { ArrowHomeComponent } from './animations/arrow-home/arrow-home.component';
+import { ArrowLeftOutsideComponent } from './animations/arrow-left-outside/arrow-left-outside.component';
 
 @Component({
   selector: 'app-root',

@@ -17,8 +17,6 @@ import { Event } from '@angular/router';
   styleUrl: './contact-me.component.scss',
 })
 export class ContactMeComponent implements OnInit {
-  //////////////////////////COLORCHANGE ANIMATIAN///////////////////////////////////////////////
-  //////////////////////////COLORCHANGE ANIMATIAN///////////////////////////////////////////////
   letters = [
     { char: 'S', colored: false },
     { char: 'a', colored: false },
@@ -29,9 +27,31 @@ export class ContactMeComponent implements OnInit {
     { char: '!', colored: false },
   ];
 
+  @ViewChild('myForm') myForm!: ElementRef;
+  @ViewChild('nameField') nameField!: ElementRef;
+  @ViewChild('emailField') emailField!: ElementRef;
+  @ViewChild('messageField') messageField!: ElementRef;
+  @ViewChild('checkBox') checkBox!: ElementRef;
+  @ViewChild('sendButton') sendButton!: ElementRef;
+
+  formData = {
+    name: '',
+    email: '',
+    message: '',
+    nameError: false,
+    emailError: false,
+    messageError: false,
+    checkboxError: false,
+  };
+
+  sendingEmail: boolean = false;
+  emailSent: boolean = false;
   isColored: boolean = false;
   buttonText: string = 'Send Message'; // Deklaration und Initialisierung
 
+  /**
+   * Lifecycle hook that is called after data-bound properties are initialized.
+   */
   ngOnInit(): void {
     if (typeof window !== 'undefined') {
       this.checkScreenSize();
@@ -39,10 +59,18 @@ export class ContactMeComponent implements OnInit {
     }
   }
 
+  /**
+   * Updates the button text based on screen width.
+   * @param {number} width - The current width of the window.
+   */
   updateButtonText(width: number) {
     this.buttonText = width <= 768 ? 'Say hello ;)' : 'Send Message';
   }
 
+  /**
+   * Host listener for window resize events to adjust UI elements accordingly.
+   * @param {Event} event - The resize event object.
+   */
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.checkScreenSize();
@@ -59,44 +87,33 @@ export class ContactMeComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks the screen size to toggle the letter case and color.
+   */
   changeColor(event: MouseEvent) {
     const element = event.target as HTMLElement;
-    // Hier können Sie die Farbe basierend auf der Position des Mauszeigers ändeng build
   }
 
+  /**
+   * resets the color of Letters.
+   */
   resetColor(event: MouseEvent) {
     const element = event.target as HTMLElement;
-    element.style.color = '##00bc8f'; // Setzt die Farbe zurück
+    element.style.color = '##00bc8f';
   }
 
+  /**
+   * Toggles the color state of a specific letter in the 'letters' array.
+   * @param {number} index - The index of the letter to toggle.
+   */
   toggleColor(index: number) {
     this.letters[index].colored = !this.letters[index].colored;
   }
 
-  //////////////////////////SEND MAIL///////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////
-
-  sendingEmail: boolean = false; // Eigenschaft zum Anzeigen der Nachricht "E-Mail wird gesendet"
-  emailSent: boolean = false; // Eigenschaft zum Anzeigen der Nachricht "E-Mail wurde erfolgreich verschickt"
-
-  @ViewChild('myForm') myForm!: ElementRef;
-  @ViewChild('nameField') nameField!: ElementRef;
-  @ViewChild('emailField') emailField!: ElementRef;
-  @ViewChild('messageField') messageField!: ElementRef;
-  @ViewChild('checkBox') checkBox!: ElementRef;
-  @ViewChild('sendButton') sendButton!: ElementRef;
-
-  formData = {
-    name: '',
-    email: '',
-    message: '',
-    nameError: false, // Fehler-Flag für den Namen
-    emailError: false, // Fehler-Flag für die E-Mail
-    messageError: false, // Fehler-Flag für die Nachricht
-    checkboxError: false, // Fehler-Flag für die Nachricht
-  };
-
+  /**
+   * Checks if the checkbox is checked.
+   * @returns {boolean} - True if the checkbox is checked, false otherwise.
+   */
   isCheckboxChecked(): boolean {
     if (this.checkBox && this.checkBox.nativeElement) {
       return this.checkBox.nativeElement.checked;
@@ -105,18 +122,14 @@ export class ContactMeComponent implements OnInit {
     }
   }
 
-  async sendMail() {
-    let nameField = this.nameField.nativeElement;
-    let emailField = this.emailField.nativeElement;
-    let messageField = this.messageField.nativeElement;
-    let checkBox = this.checkBox.nativeElement;
-    let sendButton = this.sendButton.nativeElement;
-
-    // Überprüfen, ob alle Felder das richtige Bild haben
-
+  /**
+   * Validates the form fields and checkbox.
+   * @returns {boolean} - True if the form is valid, false otherwise.
+   */
+  validateForm(): boolean {
     if (!this.isCheckboxChecked()) {
-      this.formData.checkboxError = true; // Fehler setzen, wenn die Checkbox nicht angekreuzt ist
-      return; // Beenden der Methode, wenn die Checkbox nicht angekreuzt ist
+      this.formData.checkboxError = true; // Set error if the checkbox is not checked
+      return false; // Exit the method if the checkbox is not checked
     }
     if (
       this.isRightIconPresent(this.nameField.nativeElement) &&
@@ -124,29 +137,59 @@ export class ContactMeComponent implements OnInit {
       this.isRightIconPresent(this.messageField.nativeElement) &&
       this.isCheckboxChecked()
     ) {
+      return true;
+    } else {
+      console.log('Not all fields are correctly filled.');
+      return false;
+    }
+  }
+
+  /**
+   * Sends the email.
+   * @param {HTMLInputElement} nameField - The name field.
+   * @param {HTMLInputElement} emailField - The email field.
+   */
+  async sendEmail(
+    nameField: HTMLInputElement,
+    emailField: HTMLInputElement,
+    messageField: HTMLInputElement
+  ) {
+    let fd = new FormData();
+    fd.append('name', nameField.value);
+    fd.append('email', emailField.value);
+    fd.append('message', messageField.value);
+    await fetch('https://sebastianbrosda.de/send_mail/send_mail.php', {
+      method: 'POST',
+      body: fd,
+    });
+
+    this.sendingEmail = false;
+    this.emailSent = true;
+
+    setTimeout(() => {
+      this.emailSent = false;
+    }, 2000);
+  }
+
+  /**
+   * Handles the form submission and triggers the email sending process.
+   */
+  async sendMail() {
+    let nameField = this.nameField.nativeElement;
+    let emailField = this.emailField.nativeElement;
+    let messageField = this.messageField.nativeElement;
+    let checkBox = this.checkBox.nativeElement;
+    let sendButton = this.sendButton.nativeElement;
+
+    if (this.validateForm()) {
       emailField.disabled = true;
       nameField.disabled = true;
       messageField.disabled = true;
       checkBox.disabled = true;
       sendButton.disabled = true;
-      let fd = new FormData();
-      fd.append('name', nameField.value);
-      fd.append('email', emailField.value);
-      fd.append('message', messageField.value);
-      await fetch('https://sebastianbrosda.de/send_mail/send_mail.php', {
-        method: 'POST',
-        body: fd,
-      });
 
-      this.sendingEmail = false;
-      this.emailSent = true;
+      await this.sendEmail(nameField, emailField, messageField);
 
-      // Nachricht nach 5 Sekunden ausblenden (5000 Millisekunden)
-      setTimeout(() => {
-        this.emailSent = false;
-      }, 2000);
-
-      // Text anzeigen Nachricht gesendet
       nameField.disabled = false;
       emailField.disabled = false;
       messageField.disabled = false;
@@ -154,20 +197,23 @@ export class ContactMeComponent implements OnInit {
       sendButton.disabled = false;
 
       this.resetForm();
-    } else {
-      // Optionale Fehlerbehandlung, wenn nicht alle Felder das 'right.svg' Bild haben
-      console.log('Nicht alle Felder sind korrekt ausgefüllt.');
     }
-    // Nachricht, dass gesendet wird
   }
 
-  // Funktion zum Zurücksetzen des Formulars
+  /**
+   * Resets the form to its initial state.
+   */
   resetForm() {
     this.formData.name = '';
     this.formData.email = '';
     this.formData.message = '';
   }
 
+  /**
+   * Handles the focus event on input fields to update styles.
+   * @param {HTMLInputElement} inputField - The input field that received focus.
+   * @param {HTMLLabelElement} label - The label element associated with the input field.
+   */
   onFocus(
     inputField: HTMLInputElement | HTMLTextAreaElement,
     label: HTMLLabelElement
@@ -180,6 +226,40 @@ export class ContactMeComponent implements OnInit {
     }
   }
 
+  /**
+   * Updates the background of the input field based on its validity.
+   * @param {HTMLInputElement} inputField - The input field to update.
+   * @param {boolean} isValid - Whether the input field is valid or not.
+   */
+  updateInputFieldBackground(
+    inputField: HTMLInputElement | HTMLTextAreaElement,
+    isValid: boolean
+  ) {
+    inputField.style.background = isValid
+      ? 'url(./assets/img/Icons/right.svg) right 25px top 10px no-repeat black'
+      : 'url(./assets/img/Icons/error.svg) right 25px top 10px no-repeat black';
+  }
+
+  /**
+   * Updates the label of the input field based on its value.
+   * @param {HTMLLabelElement} label - The label to update.
+   * @param {string} value - The value of the input field.
+   */
+  updateLabel(label: HTMLLabelElement, value: string) {
+    if (value === '') {
+      label.style.top = '50%';
+      label.style.fontSize = '16px';
+    } else {
+      label.style.top = '2px';
+      label.style.fontSize = '12px';
+    }
+  }
+
+  /**
+   * Handles the blur event on input fields to validate and update styles.
+   * @param {HTMLInputElement} inputField - The input field that lost focus.
+   * @param {HTMLLabelElement} label - The label element associated with the input field.
+   */
   onBlur(
     inputField: HTMLInputElement | HTMLTextAreaElement,
     label: HTMLLabelElement
@@ -187,58 +267,47 @@ export class ContactMeComponent implements OnInit {
     let isValid = inputField.value.length >= 3;
 
     if (inputField.name === 'email') {
-      // Spezielle Logik für das E-Mail-Feld
-      isValid = inputField.value.includes('@');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+      isValid = emailRegex.test(inputField.value);
       this.formData.emailError = !isValid;
-      inputField.style.background = isValid
-        ? 'url(./assets/img/Icons/right.svg) right 25px top 10px no-repeat black'
-        : 'url(./assets/img/Icons/error.svg) right 25px top 10px no-repeat black';
-      if (inputField.value === '') {
-        label.style.top = '50%';
-        label.style.fontSize = '16px';
-      } else {
-        label.style.top = '2px';
-        label.style.fontSize = '12px';
-      }
+      this.updateInputFieldBackground(inputField, isValid);
+      this.updateLabel(label, inputField.value);
     } else if (inputField.name === 'name') {
-      // Logik für das Namensfeld
       this.formData.nameError = !isValid;
-      inputField.style.background = !isValid
-        ? 'url(./assets/img/Icons/error.svg) right 25px top 10px no-repeat black'
-        : 'url(./assets/img/Icons/right.svg) right 25px top 10px no-repeat black';
-      if (inputField.value === '') {
-        label.style.top = '50%';
-        label.style.fontSize = '16px';
-      } else {
+      this.updateInputFieldBackground(inputField, isValid);
+      this.updateLabel(label, inputField.value);
+    } else if (inputField.name === 'message') {
+      this.formData.messageError = !isValid;
+      this.updateInputFieldBackground(inputField, isValid);
+      if (inputField.value !== '') {
         label.style.top = '2px';
         label.style.fontSize = '12px';
-      }
-    } else if (inputField.name === 'message') {
-      // Spezielle Logik für das Nachrichtenfeld
-      this.formData.messageError = !isValid;
-      inputField.style.background = !isValid
-        ? 'url(./assets/img/Icons/error.svg) right 25px top 10px no-repeat black'
-        : 'url(./assets/img/Icons/right.svg) right 25px top 10px no-repeat black';
-      if (inputField.value !== '') {
-        label.style.top = '2px'; // Angepasste Position für nicht leeres Nachrichtenfeld
-        label.style.fontSize = '12px';
       } else {
-        label.style.top = '10%'; // Angepasste Position für leeres Nachrichtenfeld
+        label.style.top = '10%';
         label.style.fontSize = '18px';
       }
     }
   }
 
+  /**
+   * Handles the input event on the email field to validate the email address.
+   * @param {HTMLInputElement} inputField - The email input field.
+   */
   onEmailInput(inputField: HTMLInputElement) {
-    const isValid = inputField.value.includes('@');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(inputField.value);
     this.formData.emailError = !isValid;
 
-    // Aktualisiere das Hintergrundbild basierend auf der Gültigkeit
+   
     inputField.style.background = isValid
       ? 'url(./assets/img/Icons/right.svg) right 25px top 10px no-repeat black'
       : 'black';
   }
 
+  /**
+   * Handles the input event on the name field to validate the name.
+   * @param {HTMLInputElement} inputField - The name input field.
+   */
   onNameInput(inputField: HTMLInputElement) {
     const isValid = inputField.value.length > 2;
     this.formData.nameError = !isValid;
@@ -248,6 +317,10 @@ export class ContactMeComponent implements OnInit {
       : 'black';
   }
 
+  /**
+   * Handles the input event on the message field to validate the message.
+   * @param {HTMLTextAreaElement} inputField - The message textarea field.
+   */
   onMessageInput(inputField: HTMLTextAreaElement) {
     const isValid = inputField.value.length > 2;
     this.formData.messageError = !isValid;
@@ -257,10 +330,17 @@ export class ContactMeComponent implements OnInit {
       : 'black';
   }
 
+  /**
+   * Handles changes to the checkbox to reset the checkbox error state.
+   */
   onCheckboxChange() {
     this.formData.checkboxError = false; // Fehler zurücksetzen, wenn die Checkbox geändert wird
   }
 
+  /**
+   * Checks if the right icon is present in the background image of an input field.
+   * @returns {boolean} - True if the right icon is present, false otherwise.
+   */
   isRightIconPresent(
     inputField: HTMLInputElement | HTMLTextAreaElement
   ): boolean {
@@ -270,6 +350,11 @@ export class ContactMeComponent implements OnInit {
       .backgroundImage.includes('right.svg');
   }
 
+  /**
+   * Sets the error state for the form data based on the input field name and error state.
+   * @param {HTMLInputElement | HTMLTextAreaElement} inputField - The input field to set the error state for.
+   * @param {boolean} isError - The error state to set.
+   */
   setFormDataError(
     inputField: HTMLInputElement | HTMLTextAreaElement,
     isError: boolean
@@ -283,12 +368,13 @@ export class ContactMeComponent implements OnInit {
     }
   }
 
+  /**
+   * Updates the style of the input field based on its content length.
+   * @param {HTMLInputElement | HTMLTextAreaElement} inputField - The input field to update the style for.
+   */
   updateFieldStyle(inputField: HTMLInputElement | HTMLTextAreaElement) {
     if (inputField.name === 'email') {
-      // Logik für das E-Mail-Feld
-      // ... (wie bereits definiert)
     } else {
-      // Logik für das Namens- und Nachrichtenfeld
       if (inputField.value.length >= 3) {
         inputField.style.background =
           'url(./assets/img/Icons/right.svg) right 25px top 10px no-repeat black';
@@ -298,12 +384,17 @@ export class ContactMeComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks if the form is valid by ensuring all fields are filled and the checkbox is checked.
+   */
   isFormValid() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
     return (
       this.formData.name &&
       this.formData.email &&
       this.formData.message &&
-      this.isCheckboxChecked()
+      this.isCheckboxChecked() &&
+      emailRegex.test(this.formData.email) 
     );
   }
 }

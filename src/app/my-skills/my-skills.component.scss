@@ -1,11 +1,26 @@
+$font-family-syne: "Syne";
+$font-family-overpass: "Overpass";
+$color-black: black;
+$color-white: #fffcf3;
+$color-highlight: #00bc8f;
+$transition-fast: 0.5s;
+$transition-normal: 1s;
+$transition-slow: 0.8s;
+
+@mixin hover-effect {
+  &:hover {
+    color: $color-highlight;
+    transition: color $transition-fast;
+  }
+}
+
 .my-skills-area {
   margin-left: auto;
   margin-right: auto;
   width: 88vw;
   height: auto;
-  border: 4px solid black;
+  border: 4px solid $color-black;
   text-align: center;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,16 +30,12 @@
     display: inline-block;
     font-size: 78px;
     font-weight: 800;
-    font-family: "Syne";
+    font-family: $font-family-syne;
     padding: 28px;
     margin-top: -86px;
-    background-color: #fffcf3;
+    background-color: $color-white;
     z-index: 200;
-
-    &:hover {
-      color: #00bc8f;
-      transition: color 0.5s;
-    }
+    @include hover-effect;
   }
 
   .icon-container {
@@ -40,7 +51,7 @@
       width: 75px;
       height: 75px;
       object-fit: contain;
-      transition: transform 1s ease;
+      transition: transform $transition-normal ease;
       transform-origin: 50% 50%;
     }
 
@@ -53,27 +64,26 @@
 
       &:hover {
         p {
-          color: #00bc8f;
+          color: $color-highlight;
         }
 
         img {
-          animation: circleMotion 1s ease-in-out forwards;
+          animation: circleMotion $transition-normal ease-in-out forwards;
         }
       }
 
       p {
         margin-top: 10px;
         font-size: 16px;
-
         font-weight: 700;
-        font-family: "Overpass";
+        font-family: $font-family-overpass;
       }
     }
   }
 }
 
 .animate-icon p {
-  color: #00bc8f;
+  color: $color-highlight;
 }
 
 .animate-icon img {
@@ -81,8 +91,8 @@
 }
 
 .highlight-text {
-  color: #00bc8f;
-  transition: color 0.8s;
+  color: $color-highlight;
+  transition: color $transition-slow;
   text-shadow: 0px 2px 4px rgba(0, 156, 118, 0.49);
 }
 

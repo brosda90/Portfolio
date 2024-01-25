@@ -1,5 +1,17 @@
+$font-family-overpass: "Overpass";
+$color-black: black;
+$color-white: white;
+$transition-fast: 0.2s ease-in-out;
+
+@mixin hover-effect {
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
 .footer-area {
-  background-color: black;
+  background-color: $color-black;
   margin-top: -1px;
   height: 251px;
   display: flex;
@@ -15,30 +27,27 @@
     padding-left: 0px;
     margin-top: -18px;
     gap: 24px;
+
     img {
       width: 70px;
     }
 
     span {
-      color: white;
+      color: $color-white;
       font-size: 22px;
-      font-size: "Overpass";
+      font-family: $font-family-overpass;
     }
 
     a {
       text-decoration: none;
-      color: white;
-      font-family: "Overpass";
+      color: $color-white;
+      font-family: $font-family-overpass;
       font-size: 22px;
       padding-left: 0px;
-      transition: ease-in-out 0.2s;
+      transition: $transition-fast;
       margin-left: auto;
       margin-right: auto;
-
-      &:hover {
-        cursor: pointer;
-        transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
-      }
+      @include hover-effect;
     }
   }
 
@@ -53,12 +62,8 @@
         margin-left: 25px;
         margin-bottom: 16px;
         width: 40px;
-        transition: ease-in-out 0.2s;
-
-        &:hover {
-          cursor: pointer;
-          transform: scale(1.1); // Vergrößert das Icon leicht beim Hovern
-        }
+        transition: $transition-fast;
+        @include hover-effect;
       }
     }
   }

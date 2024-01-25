@@ -1,69 +1,73 @@
-.legal-notice-container {
-  padding-top: 40px;
-  padding-left: 80px;
-  padding-right: 80px;
-  font-family: "syne";
+$font-family-syne: "Syne";
+$font-weight-bold: 800;
+$font-weight-normal: 400;
+$color-highlight: #00bc8f;
+$transition-fast: 0.2s ease-in-out;
 
-  img {
-    border-radius: -15px;
-    width: 70px;
-    height: 70px;
-    rotate: 135deg;
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-    }
-  }
-
-  h1 {
-    font-size: 58px;
-    font-weight: 800;
-  }
-
-  h2 {
-    font-size: 46px;
-    color: #00bc8f;
-  }
-
-  p {
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  a {
-    color: #00bc8f;
-  }
-}
-
-img {
-  border-radius: -15px;
-
-  width: 70px;
-  height: 70px;
-  rotate: 135deg;
-
+@mixin hover-effect {
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
   }
 }
 
+.legal-notice-container {
+  padding-top: 40px;
+  padding-left: 80px;
+  padding-right: 80px;
+  font-family: $font-family-syne;
+
+  img {
+    border-radius: -15px;
+    width: 70px;
+    height: 70px;
+    rotate: 135deg;
+    @include hover-effect;
+  }
+
+  h1 {
+    font-size: 58px;
+    font-weight: $font-weight-bold;
+  }
+
+  h2 {
+    font-size: 46px;
+    color: $color-highlight;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: $font-weight-bold;
+  }
+
+  a {
+    color: $color-highlight;
+  }
+}
+
+img {
+  border-radius: -15px;
+  width: 70px;
+  height: 70px;
+  rotate: 135deg;
+  @include hover-effect;
+}
+
 @media (max-width: 555px) {
   .legal-notice-container {
     h1 {
       font-size: 36px;
-      font-weight: 800;
+      font-weight: $font-weight-bold;
     }
 
     h2 {
       font-size: 26px;
-      color: #00bc8f;
+      color: $color-highlight;
     }
 
     p {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: $font-weight-bold;
     }
   }
 }
