@@ -31,6 +31,7 @@ export class MySkillsComponent implements AfterViewInit {
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+  private wasInView: boolean = false;
 
   /**
    * ngAfterViewInit is called after the view has been initialized.
@@ -41,23 +42,35 @@ export class MySkillsComponent implements AfterViewInit {
       this.listenToScroll();
     }
   }
-
-  /**
-   * Adds a scroll listener to the window.
-   * If the animation has not been triggered yet and the first icon is in the viewport, the icons are animated.
-   */
+  
   listenToScroll() {
     window.addEventListener('scroll', () => {
-      if (
-        !this.animationTriggered &&
-        this.iconElements &&
-        this.iconElements.length > 0 &&
-        this.isInViewport(this.iconElements.first)
-      ) {
-        this.animateIcons();
+      const mySkillsRect = this.mySkillsTitle.nativeElement.getBoundingClientRect();
+      const isInView = mySkillsRect.top < window.innerHeight && mySkillsRect.bottom >= 0;
+      const isAlmostOutOfView = mySkillsRect.bottom < 100 || mySkillsRect.top > window.innerHeight;
+  
+      if (isInView && !this.animationTriggered) {
+        this.triggerAnimation();
         this.animationTriggered = true;
+        this.wasInView = true; // Bereich wurde erreicht
+      } else if (!isInView && this.animationTriggered && this.wasInView) {
+        this.triggerReverseAnimation();
+        this.animationTriggered = false;
+        this.wasInView = false; // Bereich wurde verlassen
       }
     });
+  }
+  
+  triggerAnimation() {
+    this.renderer.addClass(this.mySkillsTitle.nativeElement, 'rotate-in-x');
+  }
+  
+  triggerReverseAnimation() {
+    this.renderer.addClass(this.mySkillsTitle.nativeElement, 'rotate-out-x');
+    setTimeout(() => {
+      this.renderer.removeClass(this.mySkillsTitle.nativeElement, 'rotate-in-x');
+      this.renderer.removeClass(this.mySkillsTitle.nativeElement, 'rotate-out-x');
+    }, 500); // Adjust this timeout to match the duration of your rotate-out-x animation
   }
 
   /**

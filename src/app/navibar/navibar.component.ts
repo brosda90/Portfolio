@@ -81,7 +81,12 @@ export class NavibarComponent {
   /**
    * Scrolls to the 'mySkills' section smoothly, considering the navbar height and a negative margin.
    */
-  scrollToMySkills(): void {
+ /**
+ * Scrolls to the 'mySkills' section smoothly, considering the navbar height and a negative margin.
+ */
+scrollToMySkills(): void {
+  this.toggleMenu();
+  setTimeout(() => {
     const mySkillsElement = document.getElementById('mySkills');
     if (mySkillsElement) {
       const navbarHeight = 50; 
@@ -94,5 +99,40 @@ export class NavibarComponent {
         behavior: 'smooth',
       });
     }
-  }
+  }, 400); // Verzögerung entsprechend der Dauer der Menüschließanimation
+}
+scrollToAboutMe(): void {
+  this.toggleMenu();
+  setTimeout(() => {
+    const aboutMeElement = document.getElementById('aboutMe');
+    if (aboutMeElement) {
+      const navbarHeight = 50; 
+      const negativeMargin = 0; // Negative margin mySkills
+      const offsetPosition =
+        aboutMeElement.offsetTop - navbarHeight - negativeMargin;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  }, 400); // Verzögerung entsprechend der Dauer der Menüschließanimation
+}
+scrollToPortfolio(): void {
+  this.toggleMenu();
+  setTimeout(() => {
+    const portfolioElement= document.getElementById('portfolio');
+    if (portfolioElement) {
+      const navbarHeight = 50; 
+      const negativeMargin = 0; // Negative margin mySkills
+      const offsetPosition =
+        portfolioElement.offsetTop - navbarHeight - negativeMargin;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  }, 400); // Verzögerung entsprechend der Dauer der Menüschließanimation
+}
 }

@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID ,OnInit  } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
@@ -22,6 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterMobileComponent } from './footers/footer-mobile/footer-mobile.component';
 import { ArrowHomeComponent } from './animations/arrow-home/arrow-home.component';
 import { ArrowLeftOutsideComponent } from './animations/arrow-left-outside/arrow-left-outside.component';
+import AOS from 'aos';
+
 
 @Component({
   selector: 'app-root',
@@ -51,14 +53,17 @@ import { ArrowLeftOutsideComponent } from './animations/arrow-left-outside/arrow
     FormsModule,
     ReactiveFormsModule,
     ArrowHomeComponent,
+  
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'myportfolio';
-  isMobile: boolean = false;
 
+export class AppComponent implements OnInit {
+    title = 'Sebastian';
+    isMobile: boolean = false;
+  
+   
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       // Prüfen, ob die Anwendung im Browser läuft
@@ -77,6 +82,11 @@ export class AppComponent {
   checkScreenSize() {
     if (isPlatformBrowser(this.platformId)) {
       this.isMobile = window.innerWidth < 769;
+    }
+  }
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init();
     }
   }
 }

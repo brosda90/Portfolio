@@ -19,18 +19,80 @@ $transition-slow: 4s ease;
   }
 }
 
+@keyframes colorChange {
+  0% {
+    color: $color-black;
+  }
+  100% {
+    color: $color-highlight;
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-120px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-title {
+  animation: slideInFromLeft 0.5s ease-out forwards, 
+              colorChange 1s ease-out 0.5s forwards; // Add color change animation
+}
+
+.animate-span {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+  animation-delay: 0.2s; // Geringere Verzögerung für einen schnelleren Start
+}
+
+.animate-button {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+  animation-delay: 0.5s; // Geringere Verzögerung für einen schnelleren Start
+}
+
+.about-me-text h2,
+.text-area span,
+.text-area button {
+  transform: translateX(-120px);
+  opacity: 0;
+}
+
+@keyframes slideOutToTop {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-140px);
+    opacity: 0;
+  }
+}
+
+.slide-out {
+  animation: slideOutToTop 0.5s ease-out forwards;
+}
+
+
+
 .about-container {
   width: 88vw;
-  margin-bottom: 26px;
+  height: 100vh;
+  margin-bottom: -70px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 1920px;
+  margin: auto;
+
 
   .about-me-text {
     h2 {
+     
       font-size: 78px;
       font-family: $font-family-syne;
       font-weight: $font-weight-bold;
@@ -52,10 +114,10 @@ $transition-slow: 4s ease;
 }
 
 .main-container {
-  width: 88vw;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  
 
   .text-area {
     display: flex;
@@ -132,6 +194,12 @@ $transition-slow: 4s ease;
 
   .frame {
     border-color: $color-black;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .about-container {
+    width: 100%;
   }
 }
 

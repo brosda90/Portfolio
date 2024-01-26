@@ -18,6 +18,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class PortfolioComponent implements AfterViewInit {
   @ViewChild('portfolioTitle') portfolioTitle!: ElementRef;
+@ViewChild('portfolioText') portfolioText!: ElementRef;
   private animationTriggered: boolean = false;
 
   constructor(
@@ -41,11 +42,23 @@ export class PortfolioComponent implements AfterViewInit {
    */
   listenToScroll() {
     window.addEventListener('scroll', () => {
-      if (!this.animationTriggered && this.shouldTriggerAnimation()) {
+      const portfolioRect = this.portfolioTitle.nativeElement.getBoundingClientRect();
+      const isInView = portfolioRect.top < window.innerHeight && portfolioRect.bottom >= 0;
+      const isOutOfView = portfolioRect.bottom < 0 || portfolioRect.top > window.innerHeight; // adjust this value as needed
+  
+      if (isInView && !this.animationTriggered) {
         this.triggerAnimation();
         this.animationTriggered = true;
+      } else if (isOutOfView && this.animationTriggered) {
+        this.triggerReverseAnimation();
+        this.animationTriggered = false;
       }
     });
+  }
+  
+  resetAnimation() {
+    this.renderer.removeClass(this.portfolioTitle.nativeElement, 'slide-out');
+    this.renderer.removeClass(this.portfolioText.nativeElement, 'slide-out');
   }
 
   /**
@@ -68,7 +81,25 @@ export class PortfolioComponent implements AfterViewInit {
    * Triggers the animation by adding the class 'highlight-text' to the portfolio title.
    */
   triggerAnimation() {
-    this.renderer.addClass(this.portfolioTitle.nativeElement, 'highlight-text');
+    this.renderer.addClass(this.portfolioTitle.nativeElement, 'animate-title');
+    setTimeout(() => {
+      this.renderer.addClass(this.portfolioText.nativeElement, 'animate-text');
+    }, 100); // Verzögerung für das 'p'-Element
+  }
+  
+  triggerReverseAnimation() {
+    this.renderer.addClass(this.portfolioTitle.nativeElement, 'slide-out');
+    setTimeout(() => {
+      this.renderer.addClass(this.portfolioText.nativeElement, 'slide-out');
+    }, 100); // Verzögerung für das 'p'-Element
+  
+    // Entfernen Sie die Klassen nach Abschluss der Animation
+    setTimeout(() => {
+      this.renderer.removeClass(this.portfolioTitle.nativeElement, 'animate-title');
+      this.renderer.removeClass(this.portfolioTitle.nativeElement, 'slide-out');
+      this.renderer.removeClass(this.portfolioText.nativeElement, 'animate-text');
+      this.renderer.removeClass(this.portfolioText.nativeElement, 'slide-out');
+    }, 1000); // Passen Sie diesen Timeout an die Dauer Ihrer Animationen an
   }
 
   /**

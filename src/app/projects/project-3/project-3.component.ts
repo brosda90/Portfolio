@@ -28,49 +28,41 @@ export class Project3Component implements AfterViewInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  /**
-   * After view initialization, if the platform is a browser, start listening to scroll events.
-   */
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.listenToScroll();
     }
   }
 
-  /**
-   * Listen to scroll events and trigger animation when conditions are met.
-   */
   listenToScroll() {
     window.addEventListener('scroll', () => {
-      if (!this.animationTriggered && this.shouldTriggerAnimation()) {
+      const projectTextAreaRect = this.projectTextArea.nativeElement.getBoundingClientRect();
+      const isInView = projectTextAreaRect.top >= 0 && projectTextAreaRect.bottom <= window.innerHeight; // adjust this value as needed
+      const isOutOfView = projectTextAreaRect.bottom < 100 || projectTextAreaRect.top > window.innerHeight; 
+  
+      if (isInView && !this.animationTriggered) {
         this.triggerAnimation();
         this.animationTriggered = true;
+      } else if (isOutOfView && this.animationTriggered) {
+        this.triggerReverseAnimation();
+        this.animationTriggered = false;
       }
     });
   }
-
-  /**
-   * Determine if the animation should be triggered based on the scroll position and element positions.
-   * @returns {boolean} - Returns true if the animation should be triggered, false otherwise.
-   */
-  shouldTriggerAnimation(): boolean {
-    const offset = this.getOffset();
-    const projectTextPosition = this.getElementPosition(
-      this.projectTextArea,
-      offset
-    );
-    const frameImagePosition = this.getElementPosition(this.frameImage, offset);
-    const scrollPosition = window.scrollY + window.innerHeight;
-
-    return (
-      scrollPosition >= projectTextPosition &&
-      scrollPosition >= frameImagePosition
-    );
+  triggerReverseAnimation() {
+    this.renderer.removeClass(this.projectTextArea.nativeElement, 'animate-class');
+    this.renderer.removeClass(this.projectTextArea.nativeElement, 'animateMobile-class');
+    this.renderer.removeClass(this.frameImage.nativeElement, 'animate-class');
+    this.renderer.removeClass(this.frameImage.nativeElement, 'animateMobile-class');
+    this.renderer.removeClass(this.imageContainer.nativeElement, 'image-colorize');
+    this.renderer.addClass(this.projectTextArea.nativeElement, 'slide-out');
+  
+    // Remove the slide-out class after the animation has completed
+    setTimeout(() => {
+      this.renderer.removeClass(this.projectTextArea.nativeElement, 'slide-out');
+    }, 1000); // Adjust this timeout to match the duration of your slide-out animation
   }
 
-  /**
-   * Trigger the animation by adding the appropriate classes to the elements.
-   */
   triggerAnimation() {
     const animationClass = this.getAnimationClass();
     this.renderer.addClass(this.projectTextArea.nativeElement, animationClass);
@@ -78,20 +70,10 @@ export class Project3Component implements AfterViewInit {
     this.renderer.addClass(this.imageContainer.nativeElement, 'image-colorize');
   }
 
-  /**
-   * Get the offset value based on the window width.
-   * @returns {number} - Returns the offset value.
-   */
   getOffset(): number {
     return window.innerWidth < 1130 ? -150 : -300;
   }
 
-  /**
-   * Get the position of an element.
-   * @param {ElementRef} elementRef - The reference to the element.
-   * @param {number} offset - The offset value.
-   * @returns {number} - Returns the position of the element.
-   */
   getElementPosition(elementRef: ElementRef, offset: number): number {
     return (
       elementRef.nativeElement.getBoundingClientRect().top +
@@ -100,10 +82,6 @@ export class Project3Component implements AfterViewInit {
     );
   }
 
-  /**
-   * Get the animation class based on the window width.
-   * @returns {string} - Returns the animation class.
-   */
   getAnimationClass(): string {
     return window.innerWidth < 1130 ? 'animateMobile-class' : 'animate-class';
   }

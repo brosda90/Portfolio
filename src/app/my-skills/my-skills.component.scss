@@ -14,7 +14,48 @@ $transition-slow: 0.8s;
   }
 }
 
+@keyframes colorChange {
+  0% {
+    color: $color-black;
+  }
+  100% {
+    color: $color-highlight;
+  }
+}
+
+@keyframes rotateInX {
+  0% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1,
+   
+  }
+}
+
+@keyframes rotateOutX {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+}
+
+.rotate-in-x {
+  animation: rotateInX 0.5s ease-out forwards, colorChange 1s ease-out 0.5s forwards;
+}
+
+.rotate-out-x {
+  animation: rotateOutX 0.5s ease-out forwards;
+}
+
 .my-skills-area {
+  max-width: 1920px;
   margin-left: auto;
   margin-right: auto;
   width: 88vw;
@@ -27,6 +68,8 @@ $transition-slow: 0.8s;
   align-items: center;
 
   h2 {
+  
+    transform: rotateX(90deg);
     display: inline-block;
     font-size: 78px;
     font-weight: 800;
@@ -114,6 +157,12 @@ $transition-slow: 0.8s;
   }
   100% {
     transform: translate(0, 0) scale(1) rotateY(360deg);
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .my-skills-area {
+    width: 100%;
   }
 }
 

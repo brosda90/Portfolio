@@ -57,6 +57,8 @@ $border-standard: 2px solid $color-white;
 }
 
 .contact-area {
+  max-width: 1920px;
+  margin: auto;
   width: 100vw;
   padding-bottom: 59px;
   display: flex;
@@ -373,6 +375,13 @@ textarea {
 .error-not-checked.show-error {
   visibility: visible;
 }
+
+@media screen and (min-width: 1920px) {
+  .contact-area {
+    width: 100%;
+  }
+}
+
 // Mobile Contact Area Styles
 @media (max-width: 1550px) {
   .contact-area h2 {

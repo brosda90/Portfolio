@@ -1,6 +1,7 @@
 $font-family-syne: "Syne";
 $font-family-overpass: "Overpass";
 $color-highlight: #00bc8f;
+$color-black: black;
 $transition-fast: 0.5s;
 
 @mixin hover-effect {
@@ -10,7 +11,57 @@ $transition-fast: 0.5s;
   }
 }
 
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToTop {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    color: $color-black;
+  }
+  100% {
+    color: $color-highlight;
+  }
+}
+
+.animate-title {
+  animation: slideInFromLeft 0.5s ease-out forwards,
+  colorChange 0.5s ease-out 0.5s forwards;
+  animation-fill-mode: forwards;
+  
+}
+
+.animate-text {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+  animation-delay: 0.2s; // Verzögerung für das 'p'-Element
+  animation-fill-mode: forwards;
+}
+
+.slide-out {
+  animation: slideOutToTop 0.5s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
 .portfolio-container {
+  max-width: 1920px;
   margin-left: auto;
   margin-right: auto;
   width: 88vw;
@@ -19,12 +70,15 @@ $transition-fast: 0.5s;
   align-items: center;
   text-align: center;
   flex-direction: column;
+  margin-bottom: 10px;
 
   h2 {
+   
     font-size: 78px;
     font-weight: 800;
     font-family: $font-family-syne;
     margin-bottom: -16px;
+    opacity: 0;
     @include hover-effect;
   }
 
@@ -35,10 +89,18 @@ $transition-fast: 0.5s;
   }
 
   p {
+   
     text-align: left;
     font-size: 23px;
     font-weight: 400;
+    opacity: 0;
     font-family: $font-family-overpass;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .portfolio-container {
+    width: 100%;
   }
 }
 

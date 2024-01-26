@@ -7,8 +7,7 @@
 
 <div class="opened-menu" [ngClass]="{ visible: menuOpen }">
   <div class="menu-links">
-    <a
-      href="#aboutMe"
+    <a (click)="scrollToAboutMe()"
       class="link-animation from-left hover-underline-animation"
       >About me</a
     >
@@ -17,7 +16,7 @@
       >My Skills</a
     >
     <img src="./assets/img/underline_rectancle.png" alt="" />
-    <a href="#portfolio" class="link-animation from-left">Portfolio</a>
+    <a (click)="scrollToPortfolio()" class="link-animation from-left">Portfolio</a>
     <img src="./assets/img/underline_rectancle.png" alt="" />
   </div>
   <div class="menu-contact">

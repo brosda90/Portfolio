@@ -20,77 +20,72 @@ export class AboutMeComponent implements AfterViewInit {
   @ViewChild('textArea') textArea!: ElementRef;
   @ViewChild('imageContainer') imageContainer!: ElementRef;
   @ViewChild('aboutMeTitle') aboutMeTitle!: ElementRef;
+  @ViewChild('aboutMeSpan') aboutMeSpan!: ElementRef;
+  @ViewChild('aboutMeButton') aboutMeButton!: ElementRef;
   private animationTriggered: boolean = false;
 
   constructor(
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
-
-   /**
-   * Lifecycle hook that is called after Angular has fully initialized a component's view.
-   * Adds a scroll listener if the platform is a browser.
-   */
-   ngAfterViewInit() {
+  private lastScrollTop: number = 0;
+  ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.listenToScroll();
     }
   }
 
-  /**
-   * Adds a scroll event listener to the window.
-   * Triggers the animation if it hasn't been triggered yet and should be triggered.
-   */
   listenToScroll() {
     window.addEventListener('scroll', () => {
-      if (!this.animationTriggered && this.shouldTriggerAnimation()) {
+      const aboutContainerRect = this.textArea.nativeElement.parentNode.getBoundingClientRect();
+      const isInView = aboutContainerRect.top < window.innerHeight && aboutContainerRect.bottom >= 200;
+      const isAlmostOutOfView = aboutContainerRect.bottom < 0; // adjust this value as needed
+  
+      if (isInView && !isAlmostOutOfView && !this.animationTriggered) {
         this.triggerAnimation();
         this.animationTriggered = true;
+      } else if (isAlmostOutOfView && this.animationTriggered) {
+        this.triggerReverseAnimation();
+        this.animationTriggered = false;
       }
     });
   }
 
-  /**
-   * Determines if the animation should be triggered based on the scroll position and element positions.
-   * @returns {boolean} - True if the animation should be triggered, false otherwise.
-   */
-  shouldTriggerAnimation(): boolean {
-    const offset = this.getOffset();
-    const textAreaPosition = this.getElementPosition(this.textArea, offset);
-    const imageContainerPosition = this.getElementPosition(
-      this.imageContainer,
-      offset
-    );
-    const scrollPosition = window.scrollY + window.innerHeight;
-
-    return (
-      scrollPosition >= textAreaPosition &&
-      scrollPosition >= imageContainerPosition
-    );
+  triggerReverseAnimation() {
+    this.renderer.removeClass(this.imageContainer.nativeElement, 'animate-image');
+    this.renderer.removeClass(this.aboutMeTitle.nativeElement, 'animate-title');
+    this.renderer.removeClass(this.aboutMeSpan.nativeElement, 'animate-span');
+    this.renderer.removeClass(this.aboutMeButton.nativeElement, 'animate-button');
+  
+    this.renderer.addClass(this.aboutMeTitle.nativeElement, 'slide-out');
+    this.renderer.addClass(this.aboutMeSpan.nativeElement, 'slide-out');
+    this.renderer.addClass(this.aboutMeButton.nativeElement, 'slide-out');
+  
+    // Remove the slide-out classes after the animation has completed
+    setTimeout(() => {
+      this.renderer.removeClass(this.aboutMeTitle.nativeElement, 'slide-out');
+      this.renderer.removeClass(this.aboutMeSpan.nativeElement, 'slide-out');
+      this.renderer.removeClass(this.aboutMeButton.nativeElement, 'slide-out');
+    }, 1000); // Adjust this timeout to match the duration of your slide-out animation
   }
 
-  /**
-   * Triggers the animation by adding classes to the image container and the title.
-   */
+  shouldTriggerAnimation(): boolean {
+    const rect = this.textArea.nativeElement.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom >= 0;
+  }
+
+
   triggerAnimation() {
     this.renderer.addClass(this.imageContainer.nativeElement, 'animate-image');
-    this.renderer.addClass(this.aboutMeTitle.nativeElement, 'highlight-text');
+    this.renderer.addClass(this.aboutMeTitle.nativeElement, 'animate-title');
+    this.renderer.addClass(this.aboutMeSpan.nativeElement, 'animate-span');
+    this.renderer.addClass(this.aboutMeButton.nativeElement, 'animate-button');
   }
 
-  /**
-   * Gets the offset value based on the window's inner width.
-   * @returns {number} - The offset value.
-   */
   getOffset(): number {
     return window.innerWidth < 1130 ? -300 : -300;
   }
 
-  /**
-   * Gets the position of an element.
-   * @param {ElementRef} elementRef - The element to get the position of.
-   * @param {number} offset - The offset to subtract from the position.
-   * @returns {number} - The position of the element.
-   */
   getElementPosition(elementRef: ElementRef, offset: number): number {
     return (
       elementRef.nativeElement.getBoundingClientRect().top +
@@ -99,9 +94,6 @@ export class AboutMeComponent implements AfterViewInit {
     );
   }
 
-  /**
-   * Scrolls to the contact section smoothly.
-   */
   scrollToContact(): void {
     document.getElementById('contactMe')?.scrollIntoView({
       behavior: 'smooth',

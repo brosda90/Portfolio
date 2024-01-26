@@ -8,6 +8,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { debounceTime, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-arrow-right',
@@ -25,6 +26,8 @@ export class ArrowRightComponent implements AfterViewInit {
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+  private enteredView: boolean = false;
+  private exitedView: boolean = false;
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -33,19 +36,23 @@ export class ArrowRightComponent implements AfterViewInit {
   }
 
   listenToScroll() {
-    window.addEventListener('scroll', () => {
-      if (!this.animationTriggered) {
-        const arrowPosition =
-          this.arrowRight.nativeElement.getBoundingClientRect().top +
-          window.scrollY +
-          this.offset;
-        const scrollPosition = window.scrollY + window.innerHeight;
-
-        // Überprüfen, ob der Scroll-Fortschritt den Punkt der Komponente (plus Offset) erreicht hat
-        if (scrollPosition >= arrowPosition) {
-          this.renderer.addClass(this.arrowRight.nativeElement, 'moved');
-          this.animationTriggered = true; // Markieren, dass die Animation ausgelöst wurde
-        }
+    fromEvent(window, 'scroll').pipe(debounceTime(50)).subscribe(() => {
+      const arrowPosition =
+        this.arrowRight.nativeElement.getBoundingClientRect().top +
+        window.scrollY +
+        this.offset;
+      const scrollPosition = window.scrollY + window.innerHeight;
+  
+      if (scrollPosition >= arrowPosition && !this.enteredView) {
+        this.renderer.removeClass(this.arrowRight.nativeElement, 'moved-reverse');
+        this.renderer.addClass(this.arrowRight.nativeElement, 'moved');
+        this.enteredView = true;
+        this.exitedView = false;
+      } else if (scrollPosition < arrowPosition && !this.exitedView && this.enteredView) {
+        this.renderer.removeClass(this.arrowRight.nativeElement, 'moved');
+        this.renderer.addClass(this.arrowRight.nativeElement, 'moved-reverse');
+        this.exitedView = true;
+        this.enteredView = false;
       }
     });
   }
