@@ -23,6 +23,7 @@ import { FooterMobileComponent } from './footers/footer-mobile/footer-mobile.com
 import { ArrowHomeComponent } from './animations/arrow-home/arrow-home.component';
 import { ArrowLeftOutsideComponent } from './animations/arrow-left-outside/arrow-left-outside.component';
 import AOS from 'aos';
+import { BaseProjectComponent } from './projects/base-project/base-project.component';
 
 
 @Component({
@@ -53,6 +54,7 @@ import AOS from 'aos';
     FormsModule,
     ReactiveFormsModule,
     ArrowHomeComponent,
+    BaseProjectComponent,
   
   ],
   templateUrl: './app.component.html',

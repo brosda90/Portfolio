@@ -18,14 +18,9 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './my-skills.component.scss',
 })
 export class MySkillsComponent implements AfterViewInit {
-  @ViewChildren(
-    'moving0, moving1, moving2, moving3, moving4, moving5, moving6, moving7, moving8, moving9'
-  )
-  iconElements!: QueryList<ElementRef>;
-
+ 
   @ViewChild('MySkillsTitle')
   mySkillsTitle!: ElementRef;
-  private animationTriggered: boolean = false;
 
   constructor(
     private renderer: Renderer2,
@@ -33,10 +28,6 @@ export class MySkillsComponent implements AfterViewInit {
   ) {}
   private wasInView: boolean = false;
 
-  /**
-   * ngAfterViewInit is called after the view has been initialized.
-   * If the platform is a browser, a scroll listener is added.
-   */
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.listenToScroll();
@@ -49,13 +40,11 @@ export class MySkillsComponent implements AfterViewInit {
       const isInView = mySkillsRect.top < window.innerHeight && mySkillsRect.bottom >= 0;
       const isAlmostOutOfView = mySkillsRect.bottom < 100 || mySkillsRect.top > window.innerHeight;
   
-      if (isInView && !this.animationTriggered) {
+      if (isInView && !this.wasInView) {
         this.triggerAnimation();
-        this.animationTriggered = true;
         this.wasInView = true; // Bereich wurde erreicht
-      } else if (!isInView && this.animationTriggered && this.wasInView) {
+      } else if (!isInView && this.wasInView) {
         this.triggerReverseAnimation();
-        this.animationTriggered = false;
         this.wasInView = false; // Bereich wurde verlassen
       }
     });
@@ -99,27 +88,7 @@ export class MySkillsComponent implements AfterViewInit {
     );
   }
 
-  /**
-   * Animates the icons by adding the class 'animate-icon' and changing the color of the text.
-   */
-  animateIcons() {
-    const iconArray = this.iconElements.toArray();
-    this.shuffleArray(iconArray); // Shuffle the elements
-
-    iconArray.forEach((icon, index) => {
-      const imgElement = icon.nativeElement.querySelector('img');
-      const pElement = icon.nativeElement.querySelector('p');
-
-      setTimeout(() => {
-        icon.nativeElement.classList.add('animate-icon');
-        imgElement.addEventListener('animationend', () => {
-          pElement.style.color = '#00bc8f';
-        });
-      }, index * 1500);
-    });
-    this.renderer.addClass(this.mySkillsTitle.nativeElement, 'highlight-text');
-  }
-
+  
   /**
    * Shuffles the elements of an array.
    * @param {any[]} array - The array to shuffle.

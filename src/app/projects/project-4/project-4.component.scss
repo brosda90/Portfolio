@@ -1,10 +1,4 @@
-$font-family-syne: "Syne";
-$font-family-overpass: "Overpass";
-$color-black: black;
-$color-highlight: #00bc8f;
-$color-white: white;
-$transition-fast: 0.2s ease-in-out;
-$transition-opacity-transform: opacity 0.5s, transform 0.5s;
+@import "../base-project/base-project.component.scss";
 
 @mixin hover-color($text-color, $background-color) {
   &:hover {
@@ -53,120 +47,11 @@ $transition-opacity-transform: opacity 0.5s, transform 0.5s;
 }
 
 .number-container {
-  max-width: 1920px;
-  width: 88vw;
-  display: flex;
   justify-content: start;
-  margin-left: auto;
-  margin-right: auto;
-
-  p {
-    font-family: $font-family-syne;
-    font-size: 48px;
-    font-weight: 700;
-    text-align: right;
-    margin-bottom: -24px;
-  }
 }
 
 .projects-container {
-  max-width: 1920px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 88vw;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  display: flex;
   flex-direction: row-reverse;
-  perspective: 1000px;
-  margin-bottom: 25px;
-}
-
-.free-space {
-  height: 0px;
-}
-
-.image-container {
-  z-index: 20;
-  position: relative;
-}
-
-img {
-  z-index: 7;
-  max-width: 620px;
-  filter: grayscale(100%);
-  max-height: auto;
-  display: block;
-  transition: filter 0.8s ease;
-}
-
-.frame {
-  position: absolute;
-  bottom: -16px;
-  right: -16px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  box-sizing: border-box;
-  img {
-    width: 70px;
-    height: 70px;
-    margin-left: -37px;
-    opacity: 0;
-    transition: $transition-opacity-transform;
-  }
-}
-
-.project-textarea {
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  flex-direction: column;
-  opacity: 0;
-
-  h2 {
-    font-family: $font-family-syne;
-    max-width: 320px;
-    font-size: 45px;
-    font-weight: 800;
-    margin-bottom: -10px;
-  }
-
-  h3 {
-    font-family: $font-family-overpass;
-    max-width: 297px;
-    font-size: 23px;
-    font-weight: 400;
- 
-  }
-
-  p {
-    max-width: 501px;
-    text-wrap: wrap;
-    font-size: 16px;
-    font-weight: 400;
-    font-family: $font-family-overpass;
-    margin-bottom: 20px;
-  }
-}
-
-button {
-  font-family: $font-family-overpass;
-  font-size: 23px;
-  margin-right: 16px;
-  width: 145px;
-  height: 65px;
-  gap: 86px;
-  font-weight: 400;
-  color: $color-black;
-  border: 4px solid $color-black;
-  background-color: $color-white;
-  transition: $transition-fast;
-  @include hover-color($color-white, $color-black);
 }
 
 .project-textarea.animate-class {
@@ -175,6 +60,14 @@ button {
 
   h3 {
     color: $color-highlight;
+  }
+}
+
+.frame{
+  justify-content: flex-start;
+  
+  img{
+    margin-left: -37px;
   }
 }
 
@@ -187,6 +80,8 @@ button {
   }
 }
 
+
+
 .frame.animate-class {
   @include animate-frame;
 }
@@ -198,6 +93,21 @@ button {
 .image-colorize {
   filter: grayscale(0%);
   transition: filter 0;
+}
+
+@keyframes slideOutToTopUnder1130 {
+  0% {
+    opacity: 1;
+    transform: translateX(0%) translateY(10%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-40%) translateY(-60%);
+  }
+}
+
+.project-textarea.slide-out-under-1130 {
+  animation: slideOutToTopUnder1130 0.5s ease-out forwards;
 }
 
 @keyframes slideOut {
@@ -219,291 +129,5 @@ button {
   100% {
     opacity: 1;
     transform: translateX(0%) translateY(10%);
-  }
-}
-
-@media screen and (min-width: 1920px) {
-  .number-container {
-    width: 100%;
-  }
-
-  .projects-container{
-    width: 100%;
-  }
-}
-
-@media (max-width: 1275px) {
-  button {
-    font-size: 21px;
-    margin-right: 12px;
-    width: 120px;
-    height: 51px;
-    gap: 86px;
-  }
-
-  img {
-    z-index: 7;
-    max-width: 530px;
-  }
-}
-
-@media (max-width: 1130px) {
-  .projects-container {
-    text-align: center;
-    height: 730px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    align-items: center;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-bottom: 70px;
-    padding-left: 0px;
-
-    img {
-      max-width: 620px;
-    }
-
-    .frame {
-      justify-content: center;
-
-      img {
-        margin-bottom: -385px;
-        margin-right: 10px;
-      }
-    }
-
-    .project-textarea {
-      width: 70vw;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      transition: ease 1.5s;
-      z-index: 10;
-    }
-  }
-}
-
-@media (max-width: 1025px) {
-  .number-container {
-    p {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      margin-left: 4%;
-    }
-  }
-}
-
-@media (max-width: 720px) {
-  .projects-container {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 25px;
-
-    .frame {
-      justify-content: center;
-
-      img {
-        margin-bottom: -324px;
-        margin-right: -15px;
-      }
-    }
-
-    img {
-      max-width: 520px;
-    }
-  }
-}
-
-@media (max-width: 575px) {
-  .projects-container {
-    height: 600px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 75px;
-
-    .frame {
-      justify-content: center;
-
-      img {
-        width: 55px;
-        height: 55px;
-        margin-bottom: -267px;
-        margin-right: 0px;
-      }
-    }
-
-    img {
-      max-width: 420px;
-    }
-  }
-}
-
-@media (max-width: 470px) {
-  .projects-container {
-    height: 536px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 68px;
-
-    .frame {
-      justify-content: center;
-
-      img {
-        width: 45px;
-        height: 45px;
-        margin-bottom: -208px;
-        margin-right: 0px;
-      }
-    }
-
-    img {
-      max-width: 330px;
-    }
-  }
-
-  .project-textarea {
-    h2 {
-      max-width: 320px;
-      font-size: 36px;
-      font-weight: 800;
-      margin-bottom: -10px;
-    }
-
-    h3 {
-      max-width: 297px;
-      font-size: 20px;
-      font-weight: 400;
-    }
-
-    p {
-      max-width: 300px;
-      text-wrap: wrap;
-      font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 20px;
-      margin-top: -4px;
-    }
-  }
-}
-
-@media (max-width: 430px) {
-  .number-container {
-    p {
-      font-size: 30px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      margin-left: 4%;
-    }
-  }
-}
-@media (max-width: 380px) {
-  .projects-container {
-    img {
-      max-width: 280px;
-    }
-
-    .frame {
-      justify-content: center;
-
-      img {
-        margin-bottom: -173px;
-      }
-    }
-
-    button {
-      font-size: 21px;
-      margin-right: 10px;
-      width: 110px;
-      height: 48px;
-    }
-  }
-}
-
-@media (max-width: 345px) {
-  .projects-container {
-    button {
-      font-size: 18px;
-      margin-right: 12px;
-      width: 92px;
-      height: 48px;
-    }
-  }
-}
-@media (max-width: 325px) {
-  .projects-container {
-    width: 77vw;
-    button {
-      font-size: 18px;
-      margin-right: 12px;
-      width: 92px;
-      height: 41px;
-      border: 3px solid black;
-    }
-  }
-}
-
-@media (max-width: 315px) {
-  .number-container p {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: -7px;
-    margin-right: 0%;
-    margin-top: -8px;
-  }
-  .projects-container {
-    margin-bottom: 36px;
-    img {
-      max-width: 230px;
-    }
-
-    .frame {
-      bottom: -8px;
-      right: -8px;
-
-      img {
-        width: 40px;
-        height: 40px;
-        margin-bottom: -144px;
-      }
-    }
-
-    button {
-      font-size: 20px;
-      margin-right: 0px;
-      width: 149px;
-      height: 48px;
-      margin-bottom: 9px;
-      color: black;
-    }
-  }
-
-  .project-textarea {
-    h2 {
-      max-width: 300px;
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: -12px;
-      margin-top: -1px;
-    }
-    h3 {
-      font-size: 18px;
-    }
-    p {
-      font-size: 15px;
-      margin-bottom: 13px;
-      margin-top: -6px;
-    }
-  }
-
-  .frame.animateMobile-class {
-    border: 2px solid black;
   }
 }

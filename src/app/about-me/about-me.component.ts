@@ -35,16 +35,18 @@ export class AboutMeComponent implements AfterViewInit {
     }
   }
 
+ 
+
   listenToScroll() {
     window.addEventListener('scroll', () => {
       const aboutContainerRect = this.textArea.nativeElement.parentNode.getBoundingClientRect();
-      const isInView = aboutContainerRect.top < window.innerHeight && aboutContainerRect.bottom >= 200;
-      const isAlmostOutOfView = aboutContainerRect.bottom < 0; // adjust this value as needed
+      const isInView = aboutContainerRect.top >= 0 && aboutContainerRect.bottom <= window.innerHeight; // adjust this value as needed
+      const isOutOfView = aboutContainerRect.bottom < 100 || aboutContainerRect.top > window.innerHeight; 
   
-      if (isInView && !isAlmostOutOfView && !this.animationTriggered) {
+      if (isInView && !this.animationTriggered) {
         this.triggerAnimation();
         this.animationTriggered = true;
-      } else if (isAlmostOutOfView && this.animationTriggered) {
+      } else if (isOutOfView && this.animationTriggered) {
         this.triggerReverseAnimation();
         this.animationTriggered = false;
       }

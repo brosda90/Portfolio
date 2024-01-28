@@ -466,3 +466,9 @@ button {
     }
   }
 }
+
+@media (max-height: 700px) {
+.middle-container {
+  margin-top: -30px;
+}
+}

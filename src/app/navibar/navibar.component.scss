@@ -7,22 +7,26 @@ $transition-fast: 0.3s ease;
 $transition-normal: 0.5s ease;
 
 
-
-
-.nav-logo img {
-  position: absolute;
-  top: 32px;
-  left: 6%;
-  width: 66px;
-  height: auto;
+.navibar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 88vw;
+  height: 100px;
+  margin-left:auto ;
+  margin-right: auto;
   z-index: 1001;
 }
 
+.nav-logo img {
+  z-index: 1001;
+  width: 66px;
+  height: auto;
+}
+
 .menu-btn img {
-  z-index: 60;
-  position: absolute;
+z-index: 1002;
   top: 36px;
-  right: 6%;
 
   &:hover{
     cursor: pointer;

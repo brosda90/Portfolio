@@ -1,8 +1,10 @@
+<div class="navibar-container">
 <div class="nav-logo">
   <img src="./assets/img/Logo.png" alt="Logo" />
 </div>
 <div class="menu-btn">
   <img [src]="menuButtonImage" alt="" (click)="toggleMenu()" />
+</div>
 </div>
 
 <div class="opened-menu" [ngClass]="{ visible: menuOpen }">
