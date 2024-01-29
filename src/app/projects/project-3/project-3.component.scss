@@ -48,12 +48,14 @@
 
 .project-textarea.slide-out {
   animation: slideOutToTop 0.5s ease-out forwards;
+  animation-fill-mode: forwards;
 }
 
 
 .project-textarea.animate-class {
   animation: slideOut 0.5s forwards;
   opacity: 0;
+  animation-fill-mode: forwards;
 
   h3 {
     color: $color-highlight;
@@ -63,6 +65,7 @@
 .project-textarea.animateMobile-class {
   animation: slideOutMobile 0.5s forwards;
   opacity: 0;
+  animation-fill-mode: forwards;
 
   h3 {
     color: $color-highlight;
@@ -82,20 +85,24 @@
 
 .project-textarea.slide-out-under-1130 {
   animation: slideOutToTopUnder1130 0.5s ease-out forwards;
+  animation-fill-mode: forwards;
 }
 
 .frame.animate-class {
   border-color: rgba(0, 0, 0, 0);
   @include animate-frame;
+  animation-fill-mode: forwards;
 }
 
 .frame.animateMobile-class {
   @include animate-mobile-frame;
+  animation-fill-mode: forwards;
 }
 
 .image-colorize {
   filter: grayscale(0%);
   transition: filter 0;
+  animation-fill-mode: forwards;
 }
 
 @keyframes slideOut {

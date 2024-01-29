@@ -267,7 +267,7 @@ export class ContactMeComponent implements OnInit {
     let isValid = inputField.value.length >= 3;
 
     if (inputField.name === 'email') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       isValid = emailRegex.test(inputField.value);
       this.formData.emailError = !isValid;
       this.updateInputFieldBackground(inputField, isValid);
@@ -298,7 +298,6 @@ export class ContactMeComponent implements OnInit {
     const isValid = emailRegex.test(inputField.value);
     this.formData.emailError = !isValid;
 
-   
     inputField.style.background = isValid
       ? 'url(./assets/img/Icons/right.svg) right 25px top 10px no-repeat black'
       : 'black';
@@ -388,13 +387,13 @@ export class ContactMeComponent implements OnInit {
    * Checks if the form is valid by ensuring all fields are filled and the checkbox is checked.
    */
   isFormValid() {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return (
       this.formData.name &&
       this.formData.email &&
       this.formData.message &&
       this.isCheckboxChecked() &&
-      emailRegex.test(this.formData.email) 
+      emailRegex.test(this.formData.email)
     );
   }
 }

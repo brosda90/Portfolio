@@ -6,6 +6,7 @@ import {
   ViewChild,
   Inject,
   PLATFORM_ID,
+  OnDestroy,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -14,35 +15,68 @@ import { isPlatformBrowser } from '@angular/common';
   standalone: true,
   imports: [],
   templateUrl: './about-me.component.html',
-  styleUrl: './about-me.component.scss',
+  styleUrls: ['./about-me.component.scss'],
 })
-export class AboutMeComponent implements AfterViewInit {
+export class AboutMeComponent implements AfterViewInit, OnDestroy {
   @ViewChild('textArea') textArea!: ElementRef;
   @ViewChild('imageContainer') imageContainer!: ElementRef;
   @ViewChild('aboutMeTitle') aboutMeTitle!: ElementRef;
   @ViewChild('aboutMeSpan') aboutMeSpan!: ElementRef;
   @ViewChild('aboutMeButton') aboutMeButton!: ElementRef;
   private animationTriggered: boolean = false;
+  private scrollTimeoutId: number | null = null;
 
   constructor(
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
-  private lastScrollTop: number = 0;
+
+  /**
+   * Angular lifecycle hook that is called after a component's view has been fully initialized.
+   * In this case, it is used to listen to scroll events if the platform is a browser.
+   */
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.listenToScroll();
     }
   }
 
- 
+  /**
+   * Angular lifecycle hook that is called just before Angular destroys the directive/component.
+   * In this case, it is used to remove the scroll event listener if the platform is a browser.
+   */
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('scroll', this.debouncedScrollHandler);
+    }
+  }
 
+  /**
+   * Listen to scroll events on the window.
+   */
   listenToScroll() {
-    window.addEventListener('scroll', () => {
-      const aboutContainerRect = this.textArea.nativeElement.parentNode.getBoundingClientRect();
-      const isInView = aboutContainerRect.top >= 0 && aboutContainerRect.bottom <= window.innerHeight; // adjust this value as needed
-      const isOutOfView = aboutContainerRect.bottom < 100 || aboutContainerRect.top > window.innerHeight; 
-  
+    window.addEventListener('scroll', this.debouncedScrollHandler);
+  }
+
+  /**
+   * Handle scroll events with debouncing.
+   * Triggers or reverses animation based on the scroll position.
+   */
+  debouncedScrollHandler = () => {
+    if (this.scrollTimeoutId !== null) {
+      cancelAnimationFrame(this.scrollTimeoutId);
+    }
+
+    this.scrollTimeoutId = requestAnimationFrame(() => {
+      const aboutContainerRect =
+        this.textArea.nativeElement.parentNode.getBoundingClientRect();
+      const isInView =
+        aboutContainerRect.top >= -300 &&
+        aboutContainerRect.bottom <= window.innerHeight;
+      const isOutOfView =
+        aboutContainerRect.bottom < 100 ||
+        aboutContainerRect.top > window.innerHeight;
+
       if (isInView && !this.animationTriggered) {
         this.triggerAnimation();
         this.animationTriggered = true;
@@ -51,32 +85,20 @@ export class AboutMeComponent implements AfterViewInit {
         this.animationTriggered = false;
       }
     });
-  }
+  };
 
-  triggerReverseAnimation() {
-    this.renderer.removeClass(this.imageContainer.nativeElement, 'animate-image');
-    this.renderer.removeClass(this.aboutMeTitle.nativeElement, 'animate-title');
-    this.renderer.removeClass(this.aboutMeSpan.nativeElement, 'animate-span');
-    this.renderer.removeClass(this.aboutMeButton.nativeElement, 'animate-button');
-  
-    this.renderer.addClass(this.aboutMeTitle.nativeElement, 'slide-out');
-    this.renderer.addClass(this.aboutMeSpan.nativeElement, 'slide-out');
-    this.renderer.addClass(this.aboutMeButton.nativeElement, 'slide-out');
-  
-    // Remove the slide-out classes after the animation has completed
-    setTimeout(() => {
-      this.renderer.removeClass(this.aboutMeTitle.nativeElement, 'slide-out');
-      this.renderer.removeClass(this.aboutMeSpan.nativeElement, 'slide-out');
-      this.renderer.removeClass(this.aboutMeButton.nativeElement, 'slide-out');
-    }, 1000); // Adjust this timeout to match the duration of your slide-out animation
-  }
-
+  /**
+   * Determine if the animation should be triggered based on the position of the text area.
+   * @returns {boolean} - True if the text area is in view, false otherwise.
+   */
   shouldTriggerAnimation(): boolean {
     const rect = this.textArea.nativeElement.getBoundingClientRect();
     return rect.top < window.innerHeight && rect.bottom >= 0;
   }
 
-
+  /**
+   * Trigger animation by adding appropriate classes.
+   */
   triggerAnimation() {
     this.renderer.addClass(this.imageContainer.nativeElement, 'animate-image');
     this.renderer.addClass(this.aboutMeTitle.nativeElement, 'animate-title');
@@ -84,10 +106,46 @@ export class AboutMeComponent implements AfterViewInit {
     this.renderer.addClass(this.aboutMeButton.nativeElement, 'animate-button');
   }
 
+  /**
+   * Trigger reverse animation by removing and adding appropriate classes.
+   */
+  triggerReverseAnimation() {
+    this.renderer.removeClass(
+      this.imageContainer.nativeElement,
+      'animate-image'
+    );
+    this.renderer.removeClass(this.aboutMeTitle.nativeElement, 'animate-title');
+    this.renderer.removeClass(this.aboutMeSpan.nativeElement, 'animate-span');
+    this.renderer.removeClass(
+      this.aboutMeButton.nativeElement,
+      'animate-button'
+    );
+
+    this.renderer.addClass(this.aboutMeTitle.nativeElement, 'slide-out');
+    this.renderer.addClass(this.aboutMeSpan.nativeElement, 'slide-out');
+    this.renderer.addClass(this.aboutMeButton.nativeElement, 'slide-out');
+
+    setTimeout(() => {
+      this.renderer.removeClass(this.aboutMeTitle.nativeElement, 'slide-out');
+      this.renderer.removeClass(this.aboutMeSpan.nativeElement, 'slide-out');
+      this.renderer.removeClass(this.aboutMeButton.nativeElement, 'slide-out');
+    }, 300);
+  }
+
+  /**
+   * Get the offset value based on the window width.
+   * @returns {number} - The offset value.
+   */
   getOffset(): number {
     return window.innerWidth < 1130 ? -300 : -300;
   }
 
+  /**
+   * Get the position of a given element.
+   * @param {ElementRef} elementRef - The reference to the element.
+   * @param {number} offset - The offset value.
+   * @returns {number} - The position of the element.
+   */
   getElementPosition(elementRef: ElementRef, offset: number): number {
     return (
       elementRef.nativeElement.getBoundingClientRect().top +
@@ -96,6 +154,9 @@ export class AboutMeComponent implements AfterViewInit {
     );
   }
 
+  /**
+   * Scroll to the contact section smoothly.
+   */
   scrollToContact(): void {
     document.getElementById('contactMe')?.scrollIntoView({
       behavior: 'smooth',

@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
   templateUrl: './legal-notice.component.html',
   styleUrl: './legal-notice.component.scss',
 })
-export class LegalNoticeComponent {}
+export class LegalNoticeComponent {
+  navigateBack() {
+    window.history.back();
+  }
+}

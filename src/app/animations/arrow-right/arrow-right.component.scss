@@ -8,56 +8,6 @@
   overflow-x: hidden !important;
 }
 
-.moved img {
-  animation: movedAnimation 0.2s linear forwards;
-}
-
-.moved-reverse img {
-  animation: movedAnimationReverse 0.2s linear forwards;
-}
-
-@keyframes movedAnimation {
-  0% {
-    transform: translate(0, 0); /* Starting position */
-  }
-  20% {
-    transform: translate(20px, 20px); /* Slightly moved */
-  }
-  40% {
-    transform: translate(40px, 40px); /* Further moved */
-  }
-  60% {
-    transform: translate(60px, 60px); /* Even more moved */
-  }
-  80% {
-    transform: translate(80px, 80px); /* Almost at final position */
-  }
-  100% {
-    transform: translate(100px, 100px); /* Final position */
-  }
-}
-
-@keyframes movedAnimationReverse {
-  0% {
-    transform: translate(100px, 100px) rotate(180deg); /* Starting position */
-  }
-  20% {
-    transform: translate(80px, 80px) rotate(180deg); /* Slightly moved */
-  }
-  40% {
-    transform: translate(60px, 60px) rotate(180deg); /* Further moved */
-  }
-  60% {
-    transform: translate(40px, 40px) rotate(180deg); /* Even more moved */
-  }
-  80% {
-    transform: translate(20px, 20px) rotate(180deg); /* Almost at final position */
-  }
-  100% {
-    transform: translate(0, 0)rotate(180deg); /* Final position */
-  }
-}
-
 .arrow-right {
   display: flex;
   height: 250px;
@@ -75,72 +25,118 @@
 }
 .arrow-right {
   display: flex;
- 
 
   height: 320px;
 
   overflow: hidden;
 
-  img{
+  img {
     height: 250px;
   }
 }
 
-/* This will move the arrow to the bottom left on hover */
 .moved {
   animation: movedAnimation 0.3s ease forwards;
+  animation-fill-mode: forwards;
   overflow-x: hidden !important;
+}
+
+.moved img {
+  animation: movedAnimation 0.2s linear forwards;
+  animation-fill-mode: forwards;
+}
+
+.moved-reverse img {
+  animation: movedAnimationReverse 0.2s linear forwards;
+  animation-fill-mode: forwards;
 }
 
 @keyframes movedAnimation {
   0% {
-    transform: translate(0, 0); /* Starting position */
+    transform: translate(0, 0);
   }
   20% {
-    transform: translate(20px, 20px); /* Slightly moved */
+    transform: translate(20px, 20px);
   }
   40% {
-    transform: translate(40px, 40px); /* Further moved */
+    transform: translate(40px, 40px);
   }
   60% {
-    transform: translate(60px, 60px); /* Even more moved */
+    transform: translate(60px, 60px);
   }
   80% {
-    transform: translate(80px, 80px); /* Almost at final position */
+    transform: translate(80px, 80px);
   }
   100% {
-    transform: translate(100px, 100px); /* Final position */
+    transform: translate(100px, 100px);
+  }
+}
+
+@keyframes movedAnimation {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(20px, 20px);
+  }
+  40% {
+    transform: translate(40px, 40px);
+  }
+  60% {
+    transform: translate(60px, 60px);
+  }
+  80% {
+    transform: translate(80px, 80px);
+  }
+  100% {
+    transform: translate(100px, 100px);
+  }
+}
+
+@keyframes movedAnimationReverse {
+  0% {
+    transform: translate(100px, 100px) rotate(180deg);
+  }
+  20% {
+    transform: translate(80px, 80px) rotate(180deg);
+  }
+  40% {
+    transform: translate(60px, 60px) rotate(180deg);
+  }
+  60% {
+    transform: translate(40px, 40px) rotate(180deg);
+  }
+  80% {
+    transform: translate(20px, 20px) rotate(180deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(180deg);
   }
 }
 
 @media screen and (min-width: 1920px) {
-  .arrow-container{
+  .arrow-container {
     width: 100%;
     margin: auto;
   }
 }
 
-
-
 @media (max-width: 770px) {
   .arrow-right img {
-    padding-right: 0px; /* Adjust padding for smaller screens */
+    padding-right: 0px;
   }
 }
 
-@media(max-width:720px){
-  .arrow-container{
-  width: 59vw;
-  }
-}
-
-@media (max-width: 600px){
+@media (max-width: 720px) {
   .arrow-container {
-
-    margin-left: 40px;
-   
+    width: 59vw;
   }
+}
 
+@media (max-width: 600px) {
+  .arrow-container {
+    margin-left: 40px;
+  }
 }
 
 @media (max-width: 555px) {
@@ -158,8 +154,8 @@
   }
 }
 
-@media (max-width:480px){
-  .arrow-container{
+@media (max-width: 480px) {
+  .arrow-container {
     width: 55vw;
     margin-left: 20px;
   }
@@ -180,22 +176,18 @@
   }
 }
 
-@media (max-width: 380px){
-
-  .arrow-right{
+@media (max-width: 380px) {
+  .arrow-right {
     margin-left: 0px;
   }
 }
 
 @media (max-width: 348px) {
-  .arrow-container{
+  .arrow-container {
     width: 62vw;
   }
 
-  .arrow-right{
+  .arrow-right {
     margin-left: -5px;
   }
-
-    
-  }
-
+}

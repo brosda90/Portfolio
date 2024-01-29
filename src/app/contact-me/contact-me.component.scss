@@ -264,16 +264,15 @@ p {
 
 @keyframes slideInFromBottom {
   0% {
-    transform: translateY(100%); /* Startet außerhalb des Bildschirms unten */
+    transform: translateY(100%);
     opacity: 0;
   }
   100% {
-    transform: translateY(0); /* Endposition, zentriert auf dem Bildschirm */
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
-// Input Group Styles
 .input-group {
   position: relative;
   margin-top: 7px;
@@ -287,7 +286,7 @@ p {
     color: #fff;
     border: none;
     padding: 0 10px;
-    background:$color-black;
+    background: $color-black;
     outline: none;
     padding-right: 50px;
 
@@ -307,7 +306,7 @@ p {
     padding: 0 5px;
     pointer-events: none;
     transition: 0.5s;
-    background-color:$color-black;
+    background-color: $color-black;
   }
 }
 
@@ -382,7 +381,6 @@ textarea {
   }
 }
 
-// Mobile Contact Area Styles
 @media (max-width: 1550px) {
   .contact-area h2 {
     left: -25%;

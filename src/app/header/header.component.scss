@@ -34,12 +34,11 @@ h1 {
 
 .middle-container {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
-
 
 .arrow-animation {
   width: 116px;
@@ -52,15 +51,6 @@ h1 {
     animation: arrowAnimation 3s infinite linear;
     animation-fill-mode: forwards;
     padding-left: 27px;
-  }
-}
-
-@keyframes arrowAnimation {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
   }
 }
 
@@ -91,6 +81,52 @@ button {
   left: -9px;
   z-index: -1;
   animation: lineAnimation 30s infinite;
+}
+
+.name-space {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  margin-top: -120px;
+
+  p {
+    color: $color-highlight;
+    font-size: 48px;
+    font-family: $font-family-overpass;
+    font-weight: 700;
+  }
+}
+
+.middle-container {
+  p {
+    transform: rotate(-90deg);
+    text-decoration: none;
+    font-size: 23px;
+    font-family: $font-family-overpass;
+    font-weight: 300;
+    color: $color-black;
+    margin-left: -100px;
+  }
+}
+
+.scroll-down-container {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  flex-direction: column;
+  font-size: 23px;
+  font-weight: 300;
+  font-family: $font-family-overpass;
+}
+
+@keyframes arrowAnimation {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
 }
 
 @keyframes lineAnimation {
@@ -153,53 +189,6 @@ button {
   }
 }
 
-.name-space {
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row-reverse;
-  margin-top: -120px;
- 
-
-  p {
-    color: $color-highlight;
-    font-size: 48px;
-    font-family: $font-family-overpass;
-    font-weight: 700;
-  }
-}
-
-
-  
- 
-.middle-container{
-  p {
-    transform: rotate(-90deg);
-    text-decoration: none;
-    font-size: 23px;
-    font-family: $font-family-overpass;
-    font-weight: 300;
-    color: $color-black;
-    margin-left: -100px;
-  }
-}
-
-
-
-.scroll-down-container {
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  flex-direction: column;
-  font-size: 23px;
-  font-weight: 300;
-  font-family: $font-family-overpass;
-
-
- 
-}
-
 @media screen and (min-width: 1920px) {
   .header-line {
     width: 100%;
@@ -229,7 +218,6 @@ button {
   .message-btn {
     display: flex;
   }
-
 }
 
 @media (max-width: 1025px) {
@@ -247,7 +235,7 @@ button {
     }
   }
 
-  .scroll-down-container{
+  .scroll-down-container {
     margin-right: 0px;
   }
 }
@@ -270,7 +258,7 @@ button {
     }
   }
 
-  .middle-container{
+  .middle-container {
     margin-top: 60px;
   }
 }
@@ -294,18 +282,18 @@ button {
     }
   }
 
-  .header-bottom{
+  .header-bottom {
     margin-top: -92px;
-  
-  
-  p {
-    font-size: 22px;
 
-    font-weight: 300;
-    color: black;
-    margin-left: 13px;
-    margin-top: -92px;
-  }}
+    p {
+      font-size: 22px;
+
+      font-weight: 300;
+      color: black;
+      margin-left: 13px;
+      margin-top: -92px;
+    }
+  }
 }
 
 @media (max-width: 635px) {
@@ -314,7 +302,7 @@ button {
     margin-top: 200px;
   }
 
-  button{
+  button {
     width: 215px;
     height: 58px;
     font-size: 23px;
@@ -348,13 +336,11 @@ button {
     margin-right: -88px;
   }
 
-  button{
+  button {
     width: 175px;
     height: 58px;
     font-size: 20px;
   }
-
-
 }
 
 @media (max-width: 470px) {
@@ -385,8 +371,8 @@ button {
     }
   }
 
-  .middle-container{
-    p{
+  .middle-container {
+    p {
       font-size: 20px;
     }
   }
@@ -406,7 +392,7 @@ button {
     font-size: 19px;
   }
 
-  .header-email{
+  .header-email {
     padding-right: 37px;
   }
 }
@@ -468,7 +454,7 @@ button {
 }
 
 @media (max-height: 700px) {
-.middle-container {
-  margin-top: -30px;
-}
+  .middle-container {
+    margin-top: -30px;
+  }
 }

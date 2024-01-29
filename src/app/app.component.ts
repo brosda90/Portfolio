@@ -22,8 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterMobileComponent } from './footers/footer-mobile/footer-mobile.component';
 import { ArrowHomeComponent } from './animations/arrow-home/arrow-home.component';
 import { ArrowLeftOutsideComponent } from './animations/arrow-left-outside/arrow-left-outside.component';
-import AOS from 'aos';
-import { BaseProjectComponent } from './projects/base-project/base-project.component';
+
+import { BaseArrowComponent } from './animations/base-arrow/base-arrow.component';
 
 
 @Component({
@@ -54,7 +54,7 @@ import { BaseProjectComponent } from './projects/base-project/base-project.compo
     FormsModule,
     ReactiveFormsModule,
     ArrowHomeComponent,
-    BaseProjectComponent,
+    BaseArrowComponent
   
   ],
   templateUrl: './app.component.html',
@@ -68,7 +68,6 @@ export class AppComponent implements OnInit {
    
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
-      // Prüfen, ob die Anwendung im Browser läuft
       this.checkScreenSize();
     }
   }
@@ -76,7 +75,6 @@ export class AppComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     if (isPlatformBrowser(this.platformId)) {
-      // Wiederholte Prüfung für Event-Handler
       this.checkScreenSize();
     }
   }
@@ -88,7 +86,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      AOS.init();
+    
     }
   }
 }

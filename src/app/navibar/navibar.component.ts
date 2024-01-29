@@ -42,16 +42,29 @@ export class NavibarComponent {
       } else {
         currentFrame += frameChange;
       }
-    }, 60); 
+    }, 60);
   }
 
   /**
-   * Scrolls to the contact section smoothly.
+   * Scrolls to a specific section smoothly, considering the navbar height and a negative margin.
+   * @param {string} elementId - The id of the element to scroll to.
+   * @param {number} negativeMargin - The negative margin to consider when scrolling.
    */
-  scrollToContact(): void {
-    document.getElementById('contactMe')?.scrollIntoView({
-      behavior: 'smooth',
-    });
+  scrollToSection(elementId: string, negativeMargin: number): void {
+    this.toggleMenu();
+    setTimeout(() => {
+      const element = document.getElementById(elementId);
+      if (element) {
+        const navbarHeight = 50;
+        const offsetPosition =
+          element.offsetTop - navbarHeight - negativeMargin;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }, 400);
   }
 
   /**
@@ -75,64 +88,6 @@ export class NavibarComponent {
    * Opens the email client with a new email to a specific address.
    */
   sendEmail() {
-    window.location.href = 'mailto:s@sebastianbrosda.de';
+    window.location.href = 'mailto:hi@sebastianbrosda.de';
   }
-
-  /**
-   * Scrolls to the 'mySkills' section smoothly, considering the navbar height and a negative margin.
-   */
- /**
- * Scrolls to the 'mySkills' section smoothly, considering the navbar height and a negative margin.
- */
-scrollToMySkills(): void {
-  this.toggleMenu();
-  setTimeout(() => {
-    const mySkillsElement = document.getElementById('mySkills');
-    if (mySkillsElement) {
-      const navbarHeight = 50; 
-      const negativeMargin = 86; // Negative margin mySkills
-      const offsetPosition =
-        mySkillsElement.offsetTop - navbarHeight - negativeMargin;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  }, 400); // Verzögerung entsprechend der Dauer der Menüschließanimation
-}
-scrollToAboutMe(): void {
-  this.toggleMenu();
-  setTimeout(() => {
-    const aboutMeElement = document.getElementById('aboutMe');
-    if (aboutMeElement) {
-      const navbarHeight = 50; 
-      const negativeMargin = 0; // Negative margin mySkills
-      const offsetPosition =
-        aboutMeElement.offsetTop - navbarHeight - negativeMargin;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  }, 400); // Verzögerung entsprechend der Dauer der Menüschließanimation
-}
-scrollToPortfolio(): void {
-  this.toggleMenu();
-  setTimeout(() => {
-    const portfolioElement= document.getElementById('portfolio');
-    if (portfolioElement) {
-      const navbarHeight = 50; 
-      const negativeMargin = 0; // Negative margin mySkills
-      const offsetPosition =
-        portfolioElement.offsetTop - navbarHeight - negativeMargin;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-    }
-  }, 400); // Verzögerung entsprechend der Dauer der Menüschließanimation
-}
 }

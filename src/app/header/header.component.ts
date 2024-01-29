@@ -23,6 +23,6 @@ export class HeaderComponent {
    * Opens the email client with a new email to a specific address.
    */
     sendEmail() {
-      window.location.href = 'mailto:s@sebastianbrosda.de';
+      window.location.href = 'mailto:hi@sebastianbrosda.de';
     }
 }

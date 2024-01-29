@@ -8,13 +8,17 @@ $transition-normal: 0.5s ease;
 
 
 .navibar-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 88vw;
   height: 100px;
-  margin-left:auto ;
-  margin-right: auto;
   z-index: 1001;
 }
 
@@ -26,7 +30,6 @@ $transition-normal: 0.5s ease;
 
 .menu-btn img {
 z-index: 1002;
-  top: 36px;
 
   &:hover{
     cursor: pointer;
@@ -225,6 +228,12 @@ z-index: 1002;
   }
 }
 
+@media (max-width: 768px){
+  .opened-menu{
+    margin-top: -140px;
+  }
+}
+
 @media (max-width: 620px) {
   .menu-links {
     a {
@@ -247,6 +256,7 @@ z-index: 1002;
 @media (max-width: 535px) {
   .opened-menu {
     height: 800px;
+    margin-top: 0px;
   }
 
   .menu-contact {
@@ -275,7 +285,7 @@ z-index: 1002;
   .menu-btn img {
     width: 37px;
     z-index: 60;
-    position: absolute;
+ 
     top: 30px;
     right: 50px;
   }

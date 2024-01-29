@@ -1,4 +1,4 @@
-$font-family-syne: "Syne";
+$font-family-overpass: "Overpass";
 $font-weight-bold: 800;
 $font-weight-normal: 400;
 $color-highlight: #00bc8f;
@@ -11,11 +11,46 @@ $transition-fast: 0.2s ease-in-out;
   }
 }
 
+.header-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 86vw;
+  height: 100px;
+  z-index: 1001;
+}
+
+.nav-logo img {
+  z-index: 1001;
+  width: 66px;
+  height: auto;
+}
+
+.menu-btn {
+  img {
+    transform: rotate(90deg);
+    width: 42px;
+    height: auto;
+    transition: ease-in-out 0.5s;
+
+    &:hover {
+      cursor: pointer;
+      transform: rotate(90deg) scale(1.1);
+    }
+  }
+}
+
 .legal-notice-container {
   padding-top: 40px;
   padding-left: 80px;
   padding-right: 80px;
-  font-family: $font-family-syne;
+  font-family: $font-family-overpass;
 
   img {
     border-radius: -15px;
@@ -26,6 +61,7 @@ $transition-fast: 0.2s ease-in-out;
   }
 
   h1 {
+    margin-top: 60px;
     font-size: 58px;
     font-weight: $font-weight-bold;
   }
@@ -33,6 +69,11 @@ $transition-fast: 0.2s ease-in-out;
   h2 {
     font-size: 46px;
     color: $color-highlight;
+  }
+
+  h3 {
+    font-size: 38px;
+    margin-bottom: -21px;
   }
 
   p {
@@ -43,14 +84,6 @@ $transition-fast: 0.2s ease-in-out;
   a {
     color: $color-highlight;
   }
-}
-
-img {
-  border-radius: -15px;
-  width: 70px;
-  height: 70px;
-  rotate: 135deg;
-  @include hover-effect;
 }
 
 @media (max-width: 555px) {
