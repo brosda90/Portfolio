@@ -199,6 +199,14 @@ z-index: 1002;
   }
 }
 
+@media (min-width: 1920px) {
+  .navibar-container {
+    width: 88vw;
+    max-width: 1920px;
+  }
+}
+
+
 @media (max-width: 800px) {
   .nav-logo {
     img {

@@ -1,5 +1,5 @@
 .arrow-area {
-  max-width: 1920px;
+  
   margin: auto;
   height: 68px;
   display: flex;
@@ -23,11 +23,7 @@
 }
 
 
-@media screen and (min-width: 1920px) {
-  .arrow-area {
-    width: 100%;
-  }
-}
+
 
 @media (max-width: 768px) {
   .arrow-area {

@@ -189,9 +189,10 @@ button {
   }
 }
 
-@media screen and (min-width: 1920px) {
-  .header-line {
-    width: 100%;
+@media (min-width: 1920px) {
+  .arrow-container  {
+    width: 88vw;
+    max-width: 1920px;
   }
 }
 

@@ -114,10 +114,10 @@
   }
 }
 
-@media screen and (min-width: 1920px) {
-  .arrow-container {
-    width: 100%;
-    margin: auto;
+@media (min-width: 1920px) {
+  .arrow-container  {
+    width: 88vw;
+    max-width: 1920px;
   }
 }
 

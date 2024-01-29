@@ -87,6 +87,12 @@ $transition-fast: 0.2s ease-in-out;
   }
 }
 
+@media screen and (min-width: 1920px) {
+  .privacy-policy-container {
+    width: 88vw;
+  }
+}
+
 
 @media (max-width: 750px) {
   .privacy-policy-container {

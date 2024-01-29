@@ -50,15 +50,16 @@ $transition-slow: 4s ease;
 }
 
 .about-container {
+  max-width: 1920px;
   width: 88vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  max-width: 1920px;
+ 
   margin: auto;
-  margin-bottom: -60px;
+  margin-bottom: 30px;
 
   .about-me-text {
     h2 {
@@ -197,9 +198,10 @@ $transition-slow: 4s ease;
   }
 }
 
-@media screen and (min-width: 1920px) {
+@media (min-width: 1920px) {
   .about-container {
-    width: 100%;
+    width: 88vw;
+    max-width: 1920px;
   }
 }
 

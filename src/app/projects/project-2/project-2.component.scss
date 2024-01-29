@@ -11,10 +11,7 @@
   }
 }
 
-.project-textarea.slide-out {
-  animation: slideOutToTop 0.5s ease-out forwards;
-  animation-fill-mode: forwards;
-}
+
 
 @keyframes slideOutToTop {
   0% {
@@ -64,7 +61,7 @@
 }
 
 .project-textarea.animate-class {
-  animation: slideOut 0.5s forwards;
+  animation: slideOut 0.3s forwards;
   opacity: 0;
   animation-fill-mode: forwards;
 
@@ -74,7 +71,7 @@
 }
 
 .project-textarea.animateMobile-class {
-  animation: slideOutMobile 0.5s forwards;
+  animation: slideOutMobile 0.3s forwards;
   opacity: 0;
   animation-fill-mode: forwards;
 
@@ -111,7 +108,12 @@
 }
 
 .project-textarea.slide-out-under-1130 {
-  animation: slideOutToTopUnder1130 0.5s ease-out forwards;
+  animation: slideOutToTopUnder1130 0.3s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
+.project-textarea.slide-out {
+  animation: slideOutToTop 0.3s ease-out forwards;
   animation-fill-mode: forwards;
 }
 
